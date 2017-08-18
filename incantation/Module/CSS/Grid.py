@@ -1,6 +1,6 @@
-from ..abs import abstract_component,indent_setter
+from ..abst import abstract_component,indent_setter
 
-class Container(indent_setter, abstract_component):
+class container(indent_setter, abstract_component):
     def init(self,content,**attributes):
         body   = \
 """

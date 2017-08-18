@@ -4,12 +4,8 @@ from .utils import dict_str
 from jinja2 import Template
 from copy import deepcopy
 
-
+"""Some default configurations are defined here."""
 default_conf=dict(Indent_unit = "    ") 
-default_conf.__doc__ =\
-"""
-Some default configurations are defined here.
-"""
 
 def gen_helper(render):
     """
@@ -82,6 +78,7 @@ class abstract_component:
         Do some common initial actions when initializing the Materialize-CSS object.
         """
         self.conf.update(default_conf)
+
 
 """ Trait """
 
