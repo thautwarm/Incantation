@@ -16,6 +16,5 @@ cols    = Seq(
             )
 
 print (row(cols,name = 1).setIndent(1).gen())
-
 print(section("content").setIndent(1).gen())
 

@@ -80,6 +80,24 @@ class abstract_object:
         Do some common initial actions when initializing the Materialize-CSS object.
         """
         self.conf.update(default_conf)
+    
+    def cons_class(self, string:str):
+        self.conf['attributes_dict']['class'] = f"{string} {self.conf['attributes_dict']['class']}"
+        return self
+    def append_class(self, string:str):
+        self.conf['attributes_dict']['class'] += f" {string}"
+        return self
+    def cons_attr(self, attr:str):
+        def _f(string:str):
+            self.conf['attributes_dict'][attr] = f"{string} {self.conf['attributes_dict'][attr]}"
+            return self
+        return _f
+    def append_attr(self, attr:str):
+        def _f(string:str):
+            self.conf['attributes_dict'][attr] += f" {string}"
+            return self
+        return _f
+        
 
 
 """ Trait """
