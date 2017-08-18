@@ -7,7 +7,7 @@ from copy import deepcopy
 """Some default configurations are defined here."""
 default_conf=dict(Indent_unit = "    ") 
 
-def gen_helper(render):
+def gen_helper(render) -> ('dict -> dict', 'otherwise -> str'):
     """
     Recursively render the objects.
     """
@@ -29,7 +29,7 @@ def gen_helper(render):
                     
         (get_type)
         case Seq                =>
-            render = render -> fastmap(_)(gen_helper) -> tuple(_)
+            render = render -> '\n'.join(fastmap(_)(gen_helper) -> tuple(_))
             
         otherwise               =>
                         pass

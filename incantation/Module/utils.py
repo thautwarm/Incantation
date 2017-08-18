@@ -11,3 +11,18 @@ default_attr = . attr, value -> .func -> _f where:
         return func(*args, **attributes)
 
 
+class ANY:
+    def __eq__(self,v):
+        return True
+Any = ANY()
+
+class Rule:
+    def __init__(self, f):
+        self.f = f
+    def __eq__(self, v):
+        if self.f(v):
+            return True
+        else:
+            return False
+
+    
