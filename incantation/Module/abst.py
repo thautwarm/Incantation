@@ -52,7 +52,9 @@ class abstract_object:
             If inherit the Class  "indent_setter"
             
                 Recursively change the indentation of the object with the following rules:
-                    <subobject's indentation>  = <indentation> + 1
+                    <subobject's indentation>  = (<indentation> + 2) * Indent_unit
+                    "Indent_unit" is defined in "incantation.Module.abst.default_conf"
+                    
             Else 
                 Do Nothing
                 
@@ -98,19 +100,34 @@ class indent_setter:
         self.conf["indent"] = i*default_conf["Indent_unit"] 
         self.conf -> foreach(_)(job) where:
             job = as-with conf_key def None where:
-                if self.conf[conf_key] -> isinstance(_,  abstract_object):
-                    _.setIndent(i+2)
+                if   self.conf[conf_key] -> isinstance(_,  indent_setter):
+                     _.setIndent(i+2)
+                elif self.conf[conf_key] -> isinstance(_,  Seq):
+                    foreach(_)(for_each_item) where:
+                        for_each_item = . each_item ->  None where:
+                            if isinstance(each_item, indent_setter):
+                                each_item.setIndent(i+2)
+                    
                     
 class Seq(list):
     """
-    A trait of the objects in Materialize-CSS.
+    A kind of container of the objects in Materialize-CSS.
     This trait means that an object can have multiple items to be rendered, for instance:
         * form
         * table
         * row
+    For example:
+         cols = Seq(
+                col(content1, dict(m=6,s=12,l=12)), 
+                col(content2, dict(m=6,s=12,l=12)),
+                col(content3, dict(m=6,s=12,l=12))
+            )
+         Row = row(cols)
     """
     def __init__(self, *args):
         return super(Seq, self).__init__(args)
+    
+
                     
                     
 

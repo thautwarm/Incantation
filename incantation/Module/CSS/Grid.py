@@ -26,7 +26,7 @@ class row(indent_setter, abstract_object):
     See http://materializecss.com/grid.html.
     use help : >> help (grid.init)
     """
-    def init(self, content : Seq, **attributes):
+    def init(self, content, **attributes):
         body = \
 """
 {{indent}}<div class="row" {{attributes_dict}}>
@@ -37,7 +37,22 @@ class row(indent_setter, abstract_object):
         self.conf.update(dict(content = content, indent = " ", attributes_dict = attributes))
         self.body = body
         
-    
+class col(indent_setter, abstract_object):
+    """
+    See http://materializecss.com/grid.html.
+    use help : >> help (col.init)
+    """
+    def init(self, content, hold : dict(s = int , m = int, dict = int) , **attributes):
+        body =\
+"""
+{{indent}}<div {{attributes_dict}}>
+{{indent+Indent_unit}}{{content}}
+{{indent}}</div>
+"""
+        dic = {"class": f"col s{hold['s']} m{hold['m']} l{hold['l']}" }
+        dic.update(dict(content = content, indent = " ", attributes_dict = attributes))
+        self.conf.update(dic)
+        self.body = body
     
 
 
