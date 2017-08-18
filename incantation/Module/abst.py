@@ -1,4 +1,4 @@
-from . import foreach, andThen, compose
+from . import foreach, andThen, compose, fastmap
 from .utils import dict_str
 
 from jinja2 import Template
@@ -7,7 +7,7 @@ from copy import deepcopy
 """Some default configurations are defined here."""
 default_conf=dict(Indent_unit = "    ") 
 
-def gen_helper(render):
+def gen_helper(render : dict):
     """
     Recursively render the objects.
     """
@@ -26,6 +26,12 @@ def gen_helper(render):
                 (get_type)
                 case dict               =>
                      render[conf_key] =  render[conf_key] -> gen_helper(_)
+                
+#                +[in]
+#                case seq -> get_type(seq):\
+#                            (tuple, list)=>
+#                     render[conf_key] = seq -> fastmap(_)( gen_helper )
+                     
                 otherwise               =>
                     pass
                 
@@ -37,7 +43,7 @@ def gen_helper(render):
                 
 """ Meta """
                 
-class abstract_component:
+class abstract_object:
     """
     Everything in Materialize-CSS has been abstracted to this Class.
     Everything in Materialize-CSS has 2 methods in common:
@@ -93,4 +99,7 @@ class indent_setter:
             job = as-with conf_key def None where:
                 if self.conf[conf_key] -> isinstance(_,  abstract_component):
                     _.setIndent(i+2)
+                    
+                    
+
 

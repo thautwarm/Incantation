@@ -1,7 +1,12 @@
-from ..abst import abstract_component,indent_setter
+from ..abst import abstract_object,indent_setter
 
-class container(indent_setter, abstract_component):
-    def init(self,content,**attributes):
+class container(indent_setter, abstract_object):
+    """
+    See http://materializecss.com/grid.html.
+    use help : >> help (container.init)
+    """
+    
+    def init(self, content, **attributes):
         body   = \
 """
 {{indent}}<div class="container" {{attributes_dict_str}}>
@@ -14,6 +19,21 @@ class container(indent_setter, abstract_component):
 
     def contains(self, content):
         self.conf["content"] = content
+        
+    
+class row(indent_setter, abstract_object):
+    """
+    See http://materializecss.com/grid.html.
+    use help : >> help (grid.init)
+    """
+    def init(self, content:"Objects(..., ..., ...)", **attributes):
+        body = \
+"""
+{{indent}}<div class="row" {{attributes_dict_str}}>
+{{indent}}{% for item in content %}
+{{indent+Indent_unit}}{{item}}
+{{indent}}</div>
+"""
     
     
 

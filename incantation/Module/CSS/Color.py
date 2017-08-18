@@ -1,8 +1,9 @@
-from ..abst import abstract_component
+from ..abst import abstract_object
 
-class color(abstract_component):
+class color(abstract_object):
         """
         Number of input arguments should be 1 or 3.
+        See http://materializecss.com/color.html.
         """
         def init(self,  major  : "blue,red,yellow, ..."     = "blue",
                         degree : "lighten, darken, accent"  = "",
@@ -18,9 +19,22 @@ class color(abstract_component):
 Red    = color( major = 'red'   )
 Pink   = color( major = 'pink'  )
 Purple = color( major = 'purple')
-DeepPurple \
-       = color( major = ' deep-purple' )
-Indigo = color (major = 'indigo')
+Indigo = color( major = 'indigo')
+Blue   = color( major = 'blue'  )
+Cyan   = color( major = 'cyan'  )
+Teal   = color( major = 'teal'  )
+Green  = color( major = 'green' )
+Lime   = color( major = 'lime'  )
+Yellow = color( major = 'yellow')
+Amber  = color( major = 'amber' )
+Orange = color( major = 'orange')
+Brown  = color( major = 'brown' )
+
+BlueGrey   = color( major = 'blue-grey'    )
+LightGreen = color( major = 'light-green'  )
+LightBlue  = color( major = 'light-blue'   )
+DeepPurple = color( major = ' deep-purple' )
+       
   
     
     

@@ -1,4 +1,4 @@
-from flowpython.fp import foreach, groupby, andThen, compose, flow_map, flatten
+from flowpython.fp import foreach, groupby, andThen, compose, flow_map, flatten, fastmap
 
 
 
