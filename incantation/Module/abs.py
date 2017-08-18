@@ -32,9 +32,11 @@ def gen_helper(render):
                      render[conf_key] =  render[conf_key] -> gen_helper(_)
                 otherwise               =>
                     pass
+                
         dict_deal      = as-with conf_key def conf_key where:
             if render[conf_key] -> get_type(_) == dict:
                 render[conf_key] = dict_str(render[conf_key])
+                
     return render
                 
 """ Meta """
@@ -42,7 +44,7 @@ def gen_helper(render):
 class abstract_component:
     """
     Everything in Materialize-CSS has been abstracted to this Class.
-    Everything in Materialize-CSS has 2 common method:
+    Everything in Materialize-CSS has 2 methods in common:
         1. setIndent :: int -> None
             If inherit the Class  "indent_setter"
             
