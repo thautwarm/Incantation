@@ -1,4 +1,4 @@
-from ..abst import abstract_object,indent_setter, Seq
+from ..abst import abstract_object,indent_setter, Seq, default_attr
 
 class container(indent_setter, abstract_object):
     """
@@ -6,14 +6,15 @@ class container(indent_setter, abstract_object):
     use help : >> help (container.init)
     """
     
-    def init(self, content, **attributes):
+    @default_attr(attr = "class", value = "container")
+    def init(self, content = "" , **attributes):
         body   = \
 """
-{{indent}}<div class="container" {{attributes_dict}}>
+{{indent}}<div {{attributes_dict}}>
 {{indent}}<!-- Page Content goes here -->
 {{indent+Indent_unit}}{{content}}
 {{indent}}</div>
-"""
+"""            
         self.conf.update(dict(content = content, indent = '',  attributes_dict = attributes))
         self.body = body
 
@@ -26,17 +27,20 @@ class row(indent_setter, abstract_object):
     See http://materializecss.com/grid.html.
     use help : >> help (grid.init)
     """
-    def init(self, content, **attributes):
+    
+    @default_attr(attr = "class", value = "row")
+    def init(self, content : Seq , **attributes):
         body = \
 """
-{{indent}}<div class="row" {{attributes_dict}}>
+{{indent}}<div {{attributes_dict}}>
 {{indent}}{% for item in content %}
 {{indent+Indent_unit}}{{item}}
+{{indent}}{% endfor %}
 {{indent}}</div>
 """
         self.conf.update(dict(content = content, indent = " ", attributes_dict = attributes))
         self.body = body
-        
+
 class col(indent_setter, abstract_object):
     """
     See http://materializecss.com/grid.html.
@@ -50,8 +54,8 @@ class col(indent_setter, abstract_object):
 {{indent}}</div>
 """
         dic = {"class": f"col s{hold['s']} m{hold['m']} l{hold['l']}" }
-        dic.update(dict(content = content, indent = " ", attributes_dict = attributes))
-        self.conf.update(dic)
+        attributes.update(dic)
+        self.conf.update(dict(content = content, indent = " ", attributes_dict = attributes))
         self.body = body
     
 

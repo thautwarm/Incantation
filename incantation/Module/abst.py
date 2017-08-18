@@ -1,5 +1,5 @@
 from . import foreach, andThen, compose, fastmap
-from .utils import dict_str
+from .utils import dict_str, default_attr
 
 from jinja2 import Template
 from copy import deepcopy
@@ -7,40 +7,33 @@ from copy import deepcopy
 """Some default configurations are defined here."""
 default_conf=dict(Indent_unit = "    ") 
 
-def gen_helper(render : dict):
+def gen_helper(render):
     """
     Recursively render the objects.
     """
-    if isinstance(render, str):
-        return render
-    else:
-        return render -> foreach(_)( component_deal -> andThen(_)(dict_deal) ) ->render  where:
-            
-            get_type  = . obj  -> obj.__class__
-            checktype = . type -> . obj -> get_type(obj) -> issubclass( _ , type)
+    get_type  = . obj  -> obj.__class__
+    checktype = . type -> . obj -> get_type(obj) -> issubclass( _ , type)
+    
+    condic render:
         
-            component_deal = as-with conf_key def conf_key where:
-                
-                condic render[conf_key]:
+        (get_type)
+        case dict               =>
+            render -> foreach(_)( key_func ) where:
+                key_func = as-with key def None where:
+                    render[key] = gen_helper(render[key]) -> _ if key != 'attributes_dict' else dict_str(_)
                     
-                    (checktype(abstract_object))
-                    case True               => 
-                        render[conf_key] =  render[conf_key].gen()
-                     
-                    (get_type)
-                    case dict               =>
-                        render[conf_key] =  render[conf_key] -> gen_helper(_)
-                
-                    (get_type)
-                    case Seq                =>
-                        render[conf_key] = render[conf_key] -> fastmap(_)(gen_helper) -> tuple(_)
-                     
-                    otherwise               =>
+        (checktype(abstract_object))
+        case True               => 
+            render = render.gen()
+      
+                    
+        (get_type)
+        case Seq                =>
+            render = render -> fastmap(_)(gen_helper) -> tuple(_)
+            
+        otherwise               =>
                         pass
-                
-            dict_deal      = as-with conf_key def conf_key where:
-                if render[conf_key] -> get_type(_) == dict:
-                    render[conf_key] = dict_str(render[conf_key])
+    return render
                 
 """ Meta """
                 
@@ -74,7 +67,7 @@ class abstract_object:
         Inherit the Class "indent_setter" to set Indent recursively.
         PS: Inherit the Class "indent_setter" before inheriting "abstract_object".
         """
-        pass
+        return self
     
     def gen(self):
         """
@@ -107,7 +100,7 @@ class indent_setter:
                         for_each_item = . each_item ->  None where:
                             if isinstance(each_item, indent_setter):
                                 each_item.setIndent(i+2)
-                    
+        return self
                     
 class Seq(list):
     """
