@@ -1,4 +1,6 @@
-dict_str = .dic -> str(dic)[1:-1]
+dict_str = as-with dic def dic -> map(f, _) -> ' '.join(_) where:
+        f = .key -> equal where:
+            equal = f'{key} = "{dic[key]}"'
     
 
 
