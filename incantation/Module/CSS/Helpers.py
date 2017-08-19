@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 def align(self):
-    if self -> hasattr(_, 'align_setted'):
+    if self -> not hasattr(_, 'align_setted'):
         self.align_setted = True
     else:
         raise BaseException("Alignment has been set twice!!!")

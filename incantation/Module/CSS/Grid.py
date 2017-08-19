@@ -106,7 +106,7 @@ class grid(abstract_object, dict):
         condic[] (s,m,l):
             
             case (None, None, None) =>
-                raise ValueError("Number of input arguments is zero!!! ")
+                raise ValueError("Number of input arguments cannot be zero!!! ")
             
             case (Rule(.x->x.__class__ is int), None, None) =>
                 self['m'] = self['s']//2
@@ -125,7 +125,7 @@ class grid(abstract_object, dict):
                 pass
             
             otherwise                                       =>
-                raise ValueError("Do not support initializing the grid with these arguments!!!")
+                raise ValueError("Do not support initializing <class 'grid'> with these arguments!!!")
             
     
     def loffset(self, tup):
