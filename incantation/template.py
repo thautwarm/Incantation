@@ -25,16 +25,24 @@ Body=\
 """
 
 class Page:
-	def __init__(self, body = ""):
-		self.body = body -> body.gen() if isinstance(_ ,abstract_object) else body
-	def __str__(self):
-		return self.body
-	def write(self, to = './test.html'):
-		body = self.body
-		with open(to, 'w', encoding = 'utf-8') as f:
-			Template(Body).render(body  = body) ->> f.write
+    """  user help : >> help (Page.init)   
+            Guide:
+                page = Page( content )
+                page.write('./test.html')
+                
+    """
+    def __init__(self, body = ""):
+        
+        self.body = body -> body.gen() if isinstance(_ ,abstract_object) else body
+    def __str__(self):
+        return Template(Body).render(body  = self.body)
+    def write(self, to = './test.html'):
+        with open(to, 'w', encoding = 'utf-8') as f:
+            Template(Body).render(body  =  self.body) ->> f.write
+    def gen(self):
+        return Template(Body).render(body  = self.body)
         
 
-		
+        
 
 

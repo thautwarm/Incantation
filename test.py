@@ -12,11 +12,12 @@ from incantation.template import Page
 a = container()
 try_columns = blockquote("try columns")
 try_table   = blockquote("try tables") 
-t = table( [
+t = table( ['name','email','GPA'],
+           [
             ['thautwarm','twshere', '3.7'],
             ['nightynight','thaut','4.0']
            ],
-              ['name','email','GPA'])
+              )
 cols    = Seq(
                 col("this is column1", grid(s=12)),
                 col("and this is column2", grid(s=12))
