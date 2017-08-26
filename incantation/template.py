@@ -29,9 +29,9 @@ class Page:
 		self.body = body -> body.gen() if isinstance(_ ,abstract_object) else body
 	def __str__(self):
 		return self.body
-	def write(self, path = './test.html'):
+	def write(self, to = './test.html'):
 		body = self.body
-		with open(path, 'w', encoding = 'utf-8') as f:
+		with open(to, 'w', encoding = 'utf-8') as f:
 			Template(Body).render(body  = body) ->> f.write
         
 

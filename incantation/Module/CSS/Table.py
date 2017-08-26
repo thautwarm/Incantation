@@ -12,7 +12,7 @@ class table(indent_setter, abstract_object):
     user help : >> help (table.init)
     """
     
-    def init(self, data : Seq,  column_names : Seq, **attributes):
+    def init(self, column_names : list, data : list,   **attributes):
         """
         Guide:
             >> 
