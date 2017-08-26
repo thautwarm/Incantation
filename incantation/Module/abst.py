@@ -1,24 +1,25 @@
 from . import foreach, andThen, compose, fastmap
-from .utils import dict_str, default_attr
-
+from .utils import dict_str, default_attr,dict_init_key
+from collections import defaultdict
 from jinja2 import Template
 from copy import deepcopy
 
 """Some default configurations are defined here."""
 default_conf=dict(Indent_unit = "    ") 
-
+get_type  = . obj  ->  obj.__class__
+checktype = . type -> .obj -> get_type(obj) -> issubclass(_, type)
 def gen_helper(render) -> ('dict -> dict', 'otherwise -> str'):
     """
     Recursively render the objects.
     """
-    get_type  = . obj  -> obj.__class__
-    checktype = . type -> . obj -> get_type(obj) -> issubclass( _ , type)
     
-    condic render:
+    
+    
+    condef render:
         
         (get_type)
         case dict               =>
-            render -> foreach(_)( key_func ) where:
+            render ->> foreach( key_func ) where:
                 key_func = as-with key def None where:
                     render[key] = gen_helper(render[key]) -> _ if key != 'attributes_dict' else dict_str(_)
                     
@@ -29,7 +30,7 @@ def gen_helper(render) -> ('dict -> dict', 'otherwise -> str'):
                     
         (get_type)
         case Seq                =>
-            render = render -> '\n'.join(fastmap(_)(gen_helper) -> tuple(_))
+            render = render ->> fastmap(gen_helper) => tuple => '\n'.join
             
         otherwise               =>
                         pass
@@ -82,24 +83,24 @@ class abstract_object:
         self.conf.update(default_conf)
     
     def cons_class(self, string:str):
-    
+        dict_init_key(self.conf['attributes_dict'])('class', str)
         self.conf['attributes_dict']['class'] = f"{string} {self.conf['attributes_dict']['class']}"
         return self
     
     def append_class(self, string:str):
-        
+        dict_init_key(self.conf['attributes_dict'])('class', str)
         self.conf['attributes_dict']['class'] += f" {string}"
         return self
     
     def cons_attr(self, attr:str):
-        
+        dict_init_key(self.conf['attributes_dict'])(attr, str)
         def _f(string:str):
             self.conf['attributes_dict'][attr] = f"{string} {self.conf['attributes_dict'][attr]}"
             return self
         return _f
     
     def append_attr(self, attr:str):
-    
+        dict_init_key(self.conf['attributes_dict'])(attr, str)
         def _f(string:str):
             self.conf['attributes_dict'][attr] += f" {string}"
             return self
@@ -117,12 +118,12 @@ class indent_setter:
     """
     def setIndent(self, i:int):
         self.conf["indent"] = i*default_conf["Indent_unit"] 
-        self.conf -> foreach(_)(job) where:
+        self.conf ->> foreach(job) where:
             job = as-with conf_key def None where:
                 if   self.conf[conf_key] -> isinstance(_,  indent_setter):
                      _.setIndent(i+2)
                 elif self.conf[conf_key] -> isinstance(_,  Seq):
-                    foreach(_)(for_each_item) where:
+                    foreach(for_each_item)(_) where:
                         for_each_item = . each_item ->  None where:
                             if isinstance(each_item, indent_setter):
                                 each_item.setIndent(i+2)

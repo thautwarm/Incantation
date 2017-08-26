@@ -1,4 +1,4 @@
-dict_str = as-with dic def dic -> map(f, _) -> ' '.join(_) where:
+dict_str = as-with dic def dic -> map(f, _) ->> ' '.join where:
         f = .key -> equal where:
             equal = f'{key} = "{dic[key]}"'
     
@@ -10,6 +10,9 @@ default_attr = . attr, value -> .func -> _f where:
             attributes[attr] = f"{value} " + attributes[attr] 
         return func(*args, **attributes)
 
+dict_init_key = . dic -> . attr, type -> None where:
+        if attr not in dic:
+            dic[attr] = type()
 
 class ANY:
     def __eq__(self,v):
@@ -24,6 +27,8 @@ class Rule:
             return True
         else:
             return False
+        
+        
         
         
 

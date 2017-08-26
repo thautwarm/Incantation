@@ -32,7 +32,8 @@ class Page:
 	def write(self, path = './test.html'):
 		body = self.body
 		with open(path, 'w', encoding = 'utf-8') as f:
-			Template(Body).render(body  = body) -> f.write(_) 
+			Template(Body).render(body  = body) ->> f.write
+        
 
 		
 
