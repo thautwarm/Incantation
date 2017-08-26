@@ -9,6 +9,9 @@ from incantation.Module import blockquote
 from incantation.Module.CSS.Table import table
 from incantation.Module.abst import default_conf, gen_helper, Seq
 from incantation.template import Page
+
+
+
 a = container()
 try_columns = blockquote("try columns")
 try_table   = blockquote("try tables") 
@@ -52,4 +55,14 @@ if False:
     main.contains(Seq(try_columns, a_row, try_table, a_table))
     page = Page(main)
     page.write(to = './test.html')
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     

@@ -28,6 +28,7 @@ class container(indent_setter, abstract_object):
 
     def contains(self, content):
         self.conf["content"] = content
+        return self
         
     
 class row(indent_setter, abstract_object):

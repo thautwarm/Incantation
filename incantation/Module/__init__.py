@@ -14,7 +14,7 @@ class blockquote(indent_setter, abstract_object):
         body = \
 """
 {{indent}}<blockquote {{attributes_dict}}>
-{{indent+Indent_unit}}This is an example quotation that uses the blockquote tag.
+{{indent+Indent_unit}}{{content}}.
 {{indent}}</blockquote>
 """
         self.conf.update(dict(content = content, indent = '',  attributes_dict = attributes))
