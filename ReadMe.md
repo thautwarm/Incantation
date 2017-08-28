@@ -55,62 +55,62 @@ This library is written by `flowpython`(so it just support Python 3.6.x now...),
     # print(a_table.gen())
 
     >>>     """
-            <table action = "somescirpt">
-                <thead>
-                    <tr>
-                    
-                        <th>name</th>
-                    
-                        <th>email</th>
-                    
-                        <th>phone number</th>
-                    
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr>
-                        
-                        <td>thautwarm</td>
-                        
-                        <td>twshere@outlook.com</td>
-                        
-                        <td>None</td>
-                        
-                </tr>
-                    
-                    <tr>
-                        
-                        <td>person1</td>
-                        
-                        <td>email1</td>
-                        
-                        <td>phone1</td>
-                        
-                </tr>
-                    
-                    <tr>
-                        
-                        <td>deep</td>
-                        
-                        <td>dark</td>
-                        
-                        <td>fantasy</td>
-                        
-                </tr>
-                    
-                    <tr>
-                        
-                        <td>Ass</td>
-                        
-                        <td>Tol</td>
-                        
-                        <td>Fo</td>
-                        
-                </tr>
-                    
-                </tbody>
-            </table>
+ <table action = "somescirpt">
+     <thead>
+         <tr>
+         
+             <th>name</th>
+         
+             <th>email</th>
+         
+             <th>phone number</th>
+         
+         </tr>
+     </thead>
+     <tbody>
+         
+         <tr>
+             
+             <td>thautwarm</td>
+             
+             <td>twshere@outlook.com</td>
+             
+             <td>None</td>
+             
+         </tr>
+         
+         <tr>
+             
+             <td>person1</td>
+             
+             <td>email1</td>
+             
+             <td>phone1</td>
+             
+         </tr>
+         
+         <tr>
+             
+             <td>deep</td>
+             
+             <td>dark</td>
+             
+             <td>fantasy</td>
+             
+         </tr>
+         
+         <tr>
+             
+             <td>Ass</td>
+             
+             <td>Tol</td>
+             
+             <td>Fo</td>
+             
+         </tr>
+         
+     </tbody>
+ </table>
             """
 
     from incantation.template import Page
