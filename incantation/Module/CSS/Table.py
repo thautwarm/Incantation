@@ -33,7 +33,7 @@ class table(indent_setter, abstract_object):
 {{indent+Indent_unit*3}}{% for cell in item%}
 {{indent+Indent_unit*3}}<td>{{cell}}</td>
 {{indent+Indent_unit*3}}{% endfor %}
-{{indent+Indent_unit}}</tr>
+{{indent+Indent_unit*2}}</tr>
 {{indent+Indent_unit*2}}{% endfor %}
 {{indent+Indent_unit}}</tbody>
 {{indent}}</table>

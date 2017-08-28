@@ -57,6 +57,36 @@ if False:
     page.write(to = './test.html')
     
     
+main  = container()
+a_col = col("contents", grid(s=12) )
+
+a_row = row(Seq(a_col, a_col), name = "test_row")
+
+center_align(a_row)
+
+a_row.setIndent(2)
+
+print(a_row.gen())
+from incantation.Module.CSS.Table import table
+a_table = table(
+["name", "email", "phone number"],
+[
+    ["thautwarm","twshere@outlook.com",None],
+    ["person1", "email1", "phone1"],
+    ["deep","dark","fantasy"],
+    ["Ass","Tol","Fo"]
+],
+action = "somescirpt"
+) 
+a_table.gen() ->> print
+# print(a_table.gen())
+try_columns = blockquote("try columns")
+try_table   = blockquote("try tables") 
+main.contains(Seq(try_columns, a_row, try_table, a_table))
+page = Page(main)
+page.write(to = './test.html')
+    
+    
     
     
     
