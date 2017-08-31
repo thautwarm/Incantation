@@ -11,6 +11,8 @@ from incantation.Module.abst import default_conf, gen_helper, Seq
 from incantation.template import Page
 from incantation.Module.Component.Badges import collections, dropdown, badge, collapsible
 from incantation.Module.Component.Icons import icon
+from incantation.Module.Component.Button import FAB, raised
+from incantation.Module.Component.Form import form, input_field
 
 
 
@@ -57,11 +59,34 @@ a_table = table(
         ) 
 
 # print(a_table.gen())
-try_columns = blockquote("::columns")
-try_table   = blockquote("::tables") 
+try_columns = blockquote("Columns")
+try_table   = blockquote("Tables") 
+fab = FAB([dict(color = 'red',  icon = icon("insert_chart"),  href = 'https://www.baidu.com'),
+           dict(color = 'blue', icon = icon("publish"),       href = 'https://www.google.com'),
+          ], loc = 'absolute', color = 'purple', icon = icon("publish"))
 
+a_form = form(
+            Seq(
+            input_field(grid(s=12), field_name = 'Username', type = 'text',     icon = icon('mode_edit'), id = 'for-username'),
+            input_field(grid(s=12), field_name = 'Password', type = 'password', icon = icon('brightness_auto'),   id = 'for-password'),
+            input_field(grid(s=12), field_name = 'School',   type = 'text',     icon = icon('brightness_3'),   id = 'for-school'),
+            input_field(grid(s=12), field_name = 'submit',   type = 'submit',   icon = icon('publish'),   id = 'for-submit')->> right_align,
+            ),
+            action = 'script',
+            method = 'POST')
 
-main.contains(Seq(try_columns, a_row, col(dd, grid(l = 12)),collap, b_row, try_table, a_table, cs))
+main.contains(Seq(try_columns, 
+                  a_row, 
+                  col(dd, grid(l = 12)),
+                  collap, 
+                  b_row, 
+                  try_table, 
+                  a_table, 
+                  cs, 
+                  fab, 
+                  raised(icon = icon('add_alarm'), name = "YHZ", href = 'https://www.baidu.com'),
+                  a_form
+                                          ))
 main.setIndent(1)
 
 page = Page(main)
