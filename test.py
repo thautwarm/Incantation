@@ -9,7 +9,7 @@ from incantation.Module import blockquote
 from incantation.Module.CSS.Table import table
 from incantation.Module.abst import default_conf, gen_helper, Seq
 from incantation.template import Page
-from incantation.Module.Component.Badges import collections, dropdown
+from incantation.Module.Component.Badges import collections, dropdown, badge
 
 
 
@@ -60,17 +60,17 @@ from incantation.Module.Component.Badges import collections, dropdown
     
 main  = container()
 a_col = col("contents", grid(s=6) )
-cs = collections([dict(new = False,href = '#!', num = 1, name = 'Alan'),
-                                 dict(new = True, href = '#!', num = 4, name = 'Alan'),
-                                 dict(href = '#!', name = 'Alan'),
-                                 dict(new = False,href = '#!', num = 14,name = 'Alan')
+cs = collections([badge(new = False,href = '#!', num = 1, name = 'Alan'),
+                  badge(new = True, href = '#!', num = 4, name = 'Alan'),
+                  badge(href = '#!', name = 'Alan'),
+                  badge(new = False,href = '#!', num = 14,name = 'Alan')
                                 ],
                                 )
 
-dd = dropdown([dict(new = False,href = '#!', num = 1, name = 'Alan'),
-                                 dict(new = True, href = '#!', num = 4, name = 'Alan'),
-                                 dict(href = '#!', name = 'Alan'),
-                                 dict(new = False,href = '#!', num = 14,name = 'Alan')
+dd = dropdown([badge(new = False,href = '#!', num = 1, name = 'Alan'),
+               badge(new = True, href = '#!', num = 4, name = 'Alan'),
+               badge(href = '#!', name = 'Alan'),
+               badge(new = False,href = '#!', num = 14,name = 'Alan')
                                 ],
             name = 'a dropdown list', id = 'someid')
 

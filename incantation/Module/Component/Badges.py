@@ -7,6 +7,14 @@ Created on Thu Aug 31 14:53:43 2017
 """
 
 from ..abst import abstract_object,indent_setter, Seq, default_attr, attrset_sugar
+
+def badge(href, name, new:{True,False,None} = None,  num = ""):
+    if new is None:
+        return dict(href=href, style=f"{name}")
+    class_ = 'new badge' if new else 'badge'
+    return dict(href = href, style = f'{name}<span class="{class_}">{num}</span>')
+        
+
 class collections(indent_setter, abstract_object):
     """
     See http://materializecss.com/badges.html
@@ -27,12 +35,12 @@ class collections(indent_setter, abstract_object):
               </div>
     """
     @default_attr(attr = 'class', value = "collection")
-    def init(self, content : (list,[dict]), **attributes):
+    def init(self, content : (list,[badge]), **attributes):
         body   = \
 """
 {{indent}}<div {{attributes_dict}}>
-{{indent+Indent_unit}}{% for item in content%}
-{{indent+Indent_unit*2}}<a href="{{item.href}}" class="collection-item">{%if 'new' in item %}<span class="{%if item.new %}new {% endif %}badge">{{item.num}}</span>{% endif %} {{item.name}}</a>
+{{indent+Indent_unit}}{% for badge in content%}
+{{indent+Indent_unit*2}}<a href="{{badge.href}}" class="collection-item">{{badge.style}}</a>
 {{indent+Indent_unit}}{% endfor %}
 {{indent}}</div>
 """      
@@ -47,12 +55,12 @@ class dropdown(indent_setter, abstract_object):
          Guide:
              
     """
-    def init(self, content:(list,[dict]), **attributes:dict(material_icons = 'arrow_drop_down')):
+    def init(self, content:(list,[badge]), **attributes:dict(material_icons = 'arrow_drop_down')):
         body = \
 """
 {{indent}}<ul id="{{id}}" class="dropdown-content">
-{{indent+Indent_unit}}{% for item in content%}
-{{indent+Indent_unit*2}}<li><a href="{{item.href}}" class="collection-item">{%if 'new' in item %}<span class="{%if item.new %}new {% endif %}badge">{{item.num}}</span>{% endif %} {{item.name}}</a></li>
+{{indent+Indent_unit}}{% for badge in content%}
+{{indent+Indent_unit*2}}<li><a href="{{badge.href}}">{{badge.style}}</a></li>
 {{indent+Indent_unit}}{% endfor %}
 {{indent}}</ul>
 {{indent}}<a {{attributes_dict}} data-activates="{{id}}">{{name}}<i class="material-icons right">{{material_icons}}</i></a>
