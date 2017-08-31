@@ -1,5 +1,5 @@
 from . import foreach, andThen, compose, fastmap
-from .utils import dict_str, default_attr,dict_init_key, JS_template
+from .utils import dict_str, default_attr,dict_init_key, JS_template, attrset_sugar
 from collections import defaultdict
 from jinja2 import Template
 from copy import deepcopy

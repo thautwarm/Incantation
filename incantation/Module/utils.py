@@ -10,6 +10,15 @@ default_attr = . attr, value -> .func -> _f where:
             attributes[attr] = f"{value} " + attributes[attr] 
         return func(*args, **attributes)
 
+attrset_sugar = as-with conf, attributes def as attr, value def None where:
+    if attr in attributes: 
+        conf[attr] = attributes[attr]
+        del attributes[attr]
+    else:
+        conf[attr] = value
+    
+
+
 dict_init_key = . dic -> . attr, type -> None where:
         if attr not in dic:
             dic[attr] = type()

@@ -9,7 +9,7 @@ from incantation.Module import blockquote
 from incantation.Module.CSS.Table import table
 from incantation.Module.abst import default_conf, gen_helper, Seq
 from incantation.template import Page
-from incantation.Module.Component.Badges import collections
+from incantation.Module.Component.Badges import collections, dropdown
 
 
 
@@ -60,14 +60,19 @@ from incantation.Module.Component.Badges import collections
     
 main  = container()
 a_col = col("contents", grid(s=6) )
-
-
 cs = collections([dict(new = False,href = '#!', num = 1, name = 'Alan'),
                                  dict(new = True, href = '#!', num = 4, name = 'Alan'),
                                  dict(href = '#!', name = 'Alan'),
                                  dict(new = False,href = '#!', num = 14,name = 'Alan')
                                 ],
                                 )
+
+dd = dropdown([dict(new = False,href = '#!', num = 1, name = 'Alan'),
+                                 dict(new = True, href = '#!', num = 4, name = 'Alan'),
+                                 dict(href = '#!', name = 'Alan'),
+                                 dict(new = False,href = '#!', num = 14,name = 'Alan')
+                                ],
+            name = 'a dropdown list', id = 'someid')
 
 a_row = row(Seq(a_col, a_col), name = "test_row")
 b_row = row(Seq(col(cs, grid(s=6)), col(cs, grid(s=6).loffset(s=0, m =6, l=8))))
@@ -76,15 +81,15 @@ a_row.setIndent(2)
 
 print(a_row.gen())
 a_table = table(
-["name", "email", "phone number"],
-[
-    ["thautwarm","twshere@outlook.com",None],
-    ["person1", "email1", "phone1"],
-    ["deep","dark","fantasy"],
-    ["Ass","Tol","Fo"]
-],
-action = "somescirpt"
-) 
+        ["name", "email", "phone number"],
+        [
+         ["thautwarm","twshere@outlook.com",None],
+         ["person1", "email1", "phone1"],
+         ["deep","dark","fantasy"],
+         ["Ass","Tol","Fo"]
+        ],
+        action = "somescirpt"
+        ) 
 # print(a_table.gen())
 try_columns = blockquote("try columns")
 try_table   = blockquote("try tables") 
@@ -92,7 +97,7 @@ try_table   = blockquote("try tables")
 
 
 
-main.contains(Seq(try_columns, a_row, b_row, try_table, a_table, cs))
+main.contains(Seq(try_columns, a_row, col(dd, grid(l = 12)), b_row, try_table, a_table, cs))
 page = Page(main)
 page.gen() ->> print
 page.write(to = './test.html')
