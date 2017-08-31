@@ -6,8 +6,7 @@ Created on Thu Aug 31 21:29:47 2017
 @author: misakawa
 """
 
-from ..abst import abstract_object,indent_setter, default_attr, attrset_sugar, Seq, Template
-from .Icons import icon
+from ..abst import abstract_object,indent_setter, attrset_sugar, Seq
 from ..CSS.Grid import col
 
 class input_field(col): 
@@ -16,6 +15,13 @@ class input_field(col):
     user help : >> help (input_field.init)
         Guide:
             input_field(field_name = 'Username', type = 'text', icon = icon('mode_edit'), id = 'for-username')
+    
+        Take care for `submit`:
+            submit = \
+            input_field(field_name = "TiJiao/Submit",
+                        type = 'submit',
+                        icon = icon('publish'),
+                        )
     """
     def init(self, grid : "CSS.Grid.grid" ,  **attributes):
         sugar = attrset_sugar(self.conf, attributes)
@@ -54,13 +60,13 @@ class form(indent_setter, abstract_object):
         Guide:
             a_form = form(
                         Seq(
-                        input_field(field_name = 'Username', type = 'text',     icon = icon('mode_edit'), id = 'for-username'),
-                        input_field(field_name = 'Password', type = 'password', icon = icon('publish'),   id = 'for-password'),
-                        input_field(field_name = 'School',   type = 'text',     icon = icon('publish'),   id = 'for-school'),
+                        input_field(grid(s=12), field_name = 'Username', type = 'text',     icon = icon('mode_edit'), id = 'for-username'),
+                        input_field(grid(s=12), field_name = 'Password', type = 'password', icon = icon('brightness_auto'),   id = 'for-password'),
+                        input_field(grid(s=12), field_name = 'School',   type = 'text',     icon = icon('brightness_3'),   id = 'for-school'),
+                        input_field(grid(s=12), field_name = 'submit',   type = 'submit',   icon = icon('publish'),   id = 'for-submit')->> right_align,
+                        ),
                         action = 'script',
-                        method = 'POST'
-                            ))
-                
+                        method = 'POST')
     """
     
     def init(self, content :(Seq,[input_field]), **attributes):

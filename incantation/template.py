@@ -1,4 +1,4 @@
-from .Module.abst import abstract_object
+from .Module.abst import abstract_object, gen_helper
 from jinja2 import Template
 Body=\
 """
@@ -32,8 +32,7 @@ class Page:
                 
     """
     def __init__(self, body = ""):
-        
-        self.body = body -> body.gen() if isinstance(_ ,abstract_object) else body
+        self.body = gen_helper(body) 
     def __str__(self):
         return Template(Body).render(body  = self.body)
     def write(self, to = './test.html'):

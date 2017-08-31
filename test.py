@@ -13,6 +13,7 @@ from incantation.Module.Component.Badges import collections, dropdown, badge, co
 from incantation.Module.Component.Icons import icon
 from incantation.Module.Component.Button import FAB, raised
 from incantation.Module.Component.Form import form, input_field
+from incantation.Module.Component.Navbar import navbar
 
 
 
@@ -20,6 +21,14 @@ from incantation.Module.Component.Form import form, input_field
     
     
 main  = container()
+
+nav = navbar(
+       [dict(href = 'https://baidu.com',  name = 'link1'),
+        dict(href = 'https://google.com', name = 'link2')
+       ],
+       href = 'https://github.com/thautwarm', 
+       name = 'Logo'
+       )
 
 cs = collections([badge(new = False,href = '#!', num = 1, name = 'Alan'),
                   badge(new = True, href = '#!', num = 4, name = 'Alan'),
@@ -63,7 +72,7 @@ try_columns = blockquote("Columns")
 try_table   = blockquote("Tables") 
 fab = FAB([dict(color = 'red',  icon = icon("insert_chart"),  href = 'https://www.baidu.com'),
            dict(color = 'blue', icon = icon("publish"),       href = 'https://www.google.com'),
-          ], loc = 'absolute', color = 'purple', icon = icon("publish"))
+          ], loc = 'fixed', color = 'purple', icon = icon("publish"))
 
 a_form = form(
             Seq(
@@ -86,10 +95,10 @@ main.contains(Seq(try_columns,
                   fab, 
                   raised(icon = icon('add_alarm'), name = "YHZ", href = 'https://www.baidu.com'),
                   a_form
-                                          ))
+                  ))
 main.setIndent(1)
 
-page = Page(main)
+page = Page( Seq(nav,main) )
 page.write(to = './test.html')
 
 
