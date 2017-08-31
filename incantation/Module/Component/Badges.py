@@ -8,10 +8,11 @@ Created on Thu Aug 31 14:53:43 2017
 
 from ..abst import abstract_object,indent_setter, Seq, default_attr, attrset_sugar
 
-def badge(href, name, new:{True,False,None} = None,  num = ""):
+def badge(name, href = '#!', new:{True,False,None} = None,  num = "", color = ''):
     if new is None:
         return dict(href=href, style=f"{name}")
     class_ = 'new badge' if new else 'badge'
+    if color: class_ += color
     return dict(href = href, style = f'{name}<span class="{class_}">{num}</span>')
         
 
@@ -20,10 +21,10 @@ class collections(indent_setter, abstract_object):
     See http://materializecss.com/badges.html
     user help : >> help (collections.init)
         Guide:
-            >> cs = collections([dict(new = False,href = '#!', num = 1, name = 'Alan'),
-                                 dict(new = True, href = '#!', num = 4, name = 'Alan'),
-                                 dict(href = '#!', name = 'Alan'),
-                                 dict(new = False,href = '#!', num = 14,name = 'Alan')
+            >> cs = collections([badge(new = False,href = '#!', num = 1, name = 'Alan'),
+                                 badge(new = True, href = '#!', num = 4, name = 'Alan'),
+                                 badge(href = '#!', name = 'Alan'),
+                                 badge(new = False,href = '#!', num = 14,name = 'Alan')
                                 ],
                                 )
             >> cs
@@ -53,6 +54,13 @@ class dropdown(indent_setter, abstract_object):
     See http://materializecss.com/badges.html
     user help : >> help (dropdown.init)
          Guide:
+             dd = dropdown([badge(new = False,href = '#!', num = 1, name = 'Alan'),
+                            badge(new = True, href = '#!', num = 4, name = 'Alan'),
+                            badge(href = '#!', name = 'Alan'),
+                            badge(new = False,href = '#!', num = 14,name = 'Alan')
+                            ],
+                            name = 'a dropdown list', id = 'someid'
+                            )
              
     """
     def init(self, content:(list,[badge]), **attributes:dict(material_icons = 'arrow_drop_down')):
@@ -77,6 +85,34 @@ class dropdown(indent_setter, abstract_object):
             self.conf.update(dict(content = content, indent = '',  attributes_dict = attributes))
             self.body = body
         _init_(content, **attributes)
+        
+
+class collapsible(indent_setter, abstract_object):
+    """
+    See http://materializecss.com/badges.html
+    user help : >> help (collapsible.init)
+    """
+    @default_attr(attr = 'class', value = "collapsible")
+    @default_attr(attr = 'data-collapsible', value = 'accordion')
+    def init(self, content, **attributes):
+        body = \
+"""
+{{indent}}<ul {{attributes_dict}}>
+{{indent+Indent_unit}}{% for item in content %}
+{{indent+Indent_unit}}<li>
+{{indent+Indent_unit}}<div class="collapsible-header">
+{{indent+Indent_unit}}{{item[0]}}
+{{indent+Indent_unit}}<a href="{{item[1].href}}">{{item[1].style}}</a>
+{{indent+Indent_unit}}</div>
+{{indent+Indent_unit}}<div class="collapsible-body">
+{{indent+Indent_unit}}{{item[2]}}
+{{indent+Indent_unit}}</div>
+{{indent+Indent_unit}}</li>
+{{indent+Indent_unit}}{% endfor %}
+{{indent}}</ul>
+"""
+        self.conf.update(dict(content = content, indent = '',  attributes_dict = attributes))
+        self.body = body
         
     
     

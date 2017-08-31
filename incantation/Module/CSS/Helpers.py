@@ -14,12 +14,12 @@ def align(self):
     return _f
 
 def left_align(self):
-    align(self)("left")
+    return align(self)("left")
 
 def right_align(self):
-    align(self)("right")
+    return align(self)("right")
 
 def center_align(self):
-    align(self)("center")
+    return align(self)("center")
 
     

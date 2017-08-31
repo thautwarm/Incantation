@@ -166,10 +166,9 @@ class grid(abstract_object, dict):
             otherwise          =>
                 raise ValueError("Do not support setting left-offset with these arguments!!!")
         return self
-    def push(self, tup): 
+    def push(self, *single, **dic):
         """ equals `grid.loffset`"""
-        return self.loffset(tup)
-    
+        return self.loffset( *single, **dic)    
                 
     def roffset(self, *single, **dic):
         tup = single[0] if single else dic
@@ -185,9 +184,9 @@ class grid(abstract_object, dict):
             otherwise          =>
                 raise ValueError("Do not support setting right-offset with these arguments!!!")
         return self
-    def pull(self, tup): 
+    def pull(self, *single, **dic): 
         """ equals `grid.roffset`"""
-        return self.roffset(tup)
+        return self.roffset(*single, **dic)
     
     def gen(self):
         ret = Template("col s{{s}} m{{m}} l{{l}}").render(**self)
