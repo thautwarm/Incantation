@@ -1,5 +1,5 @@
 from . import foreach, andThen, compose, fastmap
-from .utils import dict_str, default_attr,dict_init_key
+from .utils import dict_str, default_attr,dict_init_key, JS_template
 from collections import defaultdict
 from jinja2 import Template
 from copy import deepcopy
@@ -12,9 +12,6 @@ def gen_helper(render) -> ('dict -> dict', 'otherwise -> str'):
     """
     Recursively render the objects.
     """
-    
-    
-    
     condef render:
         
         (get_type)
@@ -60,6 +57,7 @@ class abstract_object:
         self.body = ""
         eval("self.init(*args,**kwargs)")
         self.common_init()
+        self.JS = ""
         
 
     def setIndent(self, i:int):
@@ -74,8 +72,14 @@ class abstract_object:
         """
         Generate the html codes from the object.
         """
-        render = deepcopy(self.conf)
-        return eval("Template(self.body).render(**gen_helper(render) )")
+        render   = deepcopy(self.conf)
+        rendered =  eval("Template(self.body).render(**gen_helper(render) )")
+        if self.JS:
+            rendered = rendered + JS_template.format(JS = (self.conf['indent']+default_conf['Indent_unit']).join(self.JS.splitlines()), 
+                                                     indent =self.conf['indent'], 
+                                                     Indent_unit =default_conf['Indent_unit'])
+        return rendered
+        
     def common_init(self):
         """
         Do some common initial actions when initializing the Materialize-CSS object.

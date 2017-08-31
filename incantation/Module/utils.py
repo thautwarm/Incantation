@@ -13,6 +13,14 @@ default_attr = . attr, value -> .func -> _f where:
 dict_init_key = . dic -> . attr, type -> None where:
         if attr not in dic:
             dic[attr] = type()
+            
+            
+JS_template =\
+"""
+{indent}<script>
+{indent}{Indent_unit}{JS}
+{indent}</scirpt>
+"""
 
 class ANY:
     def __eq__(self,v):

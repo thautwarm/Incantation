@@ -5,18 +5,60 @@ Created on Sat Aug 26 16:14:34 2017
 
 @author: misakawa
 """
-from ..abst import abstract_object,indent_setter, Seq
+from ..abst import abstract_object,indent_setter
 class table(indent_setter, abstract_object):
     """
     See http://materializecss.com/table.html
     user help : >> help (table.init)
+        Guide:
+            >> t = table( 
+                    ['name','email','GPA'],
+                    [
+                            ['thautwarm','twshere', '3.7'],
+                            ['nightynight','thaut','4.0']
+                    ]
+                        )
+            >> t
+            <table >
+                <thead>
+                    <tr>
+                    
+                        <th>name</th>
+                    
+                        <th>email</th>
+                    
+                        <th>GPA</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        
+                        <td>thautwarm</td>
+                        
+                        <td>twshere</td>
+                        
+                        <td>3.7</td>
+                        
+                    </tr>
+                    
+                    <tr>
+                        
+                        <td>nightynight</td>
+                        
+                        <td>thaut</td>
+                        
+                        <td>4.0</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
     """
     
     def init(self, column_names : list, data : list,   **attributes):
-        """
-        Guide:
-            >> 
-        """
+
         body = \
 """
 {{indent}}<table {{attributes_dict}}>

@@ -117,15 +117,12 @@ class grid(abstract_object, dict):
     
     user help:
         >>> col("content here!", grid(m=5, s= 8, l=3).roffset(grid(s=3,m=1,l=1)) )
-        >>> c = col("content here!")
-        >>> c.roffset(grid(s=20))
-        >>> c.pull(grid(s=20))
-        >>> c.push(grid(s=20))
+        >>> col("content here!", grid(m=5, s= 8, l=3).roffset(grid(s=3,m=1,l=1)).loffser(3) ) # s=3, m = 3//2, l = 3//3
+        >>> col("content here!", grid(m=5, s= 8, l=3).roffset(grid(s=3,m=1,l=1)).loffser(s = 3, m = 2, l =1))
     """    
     def init(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)       
         self.update(dict(loffset = (), roffset=() ))
-
         
         s = None if 's' not in self else self['s']
         m = None if 'm' not in self else self['m']
@@ -155,7 +152,8 @@ class grid(abstract_object, dict):
                 raise ValueError("Do not support initializing <class 'grid'> with these arguments!!!")
             
     
-    def loffset(self, tup):
+    def loffset(self, *single, **dic):
+        tup = single[0] if single else dic
         condef tup:
             (type)
             case int =>
@@ -173,7 +171,8 @@ class grid(abstract_object, dict):
         return self.loffset(tup)
     
                 
-    def roffset(self, tup):
+    def roffset(self, *single, **dic):
+        tup = single[0] if single else dic
         condef tup:
             (type)
             case int =>
@@ -193,9 +192,9 @@ class grid(abstract_object, dict):
     def gen(self):
         ret = Template("col s{{s}} m{{m}} l{{l}}").render(**self)
         if self['loffset']:
-            ret += Template(" push-s{{s}} m{{m}} l{{l}}").render(**self['loffset'])
+            ret += Template(" push-s{{s}} push-m{{m}} push-l{{l}}").render(**self['loffset'])
         if self['roffset']:
-            ret += Template(" pull-s{{s}} m{{m}} l{{l}}").render(**self['roffset'])
+            ret += Template(" pull-s{{s}} pull-m{{m}} pull-l{{l}}").render(**self['roffset'])
         return ret
         
             
