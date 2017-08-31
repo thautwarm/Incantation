@@ -91,6 +91,10 @@ class collapsible(indent_setter, abstract_object):
     """
     See http://materializecss.com/badges.html
     user help : >> help (collapsible.init)
+        Guide:
+            collap = collapsible([(icon('filter_drama'),badge(href = '#!', name = "First") , "<p>Lorem ipsum dolor sit amet.</p>"),
+                                  (icon('place'),       badge(href = '#!', name = "Second"), "place")
+                                 ])
     """
     @default_attr(attr = 'class', value = "collapsible")
     @default_attr(attr = 'data-collapsible', value = 'accordion')

@@ -19,9 +19,10 @@ from incantation.Module.Component.Navbar import navbar
 
 
     
-    
+# create a container
 main  = container()
 
+# create a navbar
 nav = navbar(
        [dict(href = 'https://baidu.com',  name = 'link1'),
         dict(href = 'https://google.com', name = 'link2')
@@ -30,14 +31,15 @@ nav = navbar(
        name = 'Logo'
        )
 
-cs = collections([badge(new = False,href = '#!', num = 1, name = 'Alan'),
+# create collections
+collect = collections([badge(new = False,href = '#!', num = 1, name = 'Alan'),
                   badge(new = True, href = '#!', num = 4, name = 'Alan'),
                   badge(href = '#!', name = 'Alan'),
                   badge(new = False,href = '#!', num = 14,name = 'Alan')
                                 ],
                                 )
 
-
+# create a dropdown
 dd = dropdown([badge(new = False,href = '#!', num = 1, name = 'Alan'),
                badge(new = True, href = '#!', num = 4, name = 'Alan'),
                badge(href = '#!', name = 'Alan'),
@@ -45,17 +47,18 @@ dd = dropdown([badge(new = False,href = '#!', num = 1, name = 'Alan'),
                                 ],
                name = 'a dropdown list', id = 'someid')
 
+# create a collapsible
 collap = collapsible([(icon('filter_drama'),badge(href = '#!', name = "First") , "<p>Lorem ipsum dolor sit amet.</p>"),
                       (icon('place'),       badge(href = '#!', name = "Second"), "place")
                      ])
 
-
+# create 2 rows 
 a_col = col("contents", grid(s=6) )
 a_row = row(Seq(a_col, a_col), name = "test_row")
-b_row = row(Seq(col(cs, grid(s=6)), col(cs, grid(s=6).loffset(s=0, m =6, l=8))))
+b_row = row(Seq(col(collect, grid(s=6)), col(collect, grid(s=6).loffset(s=0, m =6, l=8))))
 center_align(a_row)
 
-
+# create a table
 a_table = table(
         ["name", "email", "phone number"],
         [
@@ -67,13 +70,15 @@ a_table = table(
         action = "somescirpt"
         ) 
 
-# print(a_table.gen())
 try_columns = blockquote("Columns")
 try_table   = blockquote("Tables") 
+
+# create a fixed action button 
 fab = FAB([dict(color = 'red',  icon = icon("insert_chart"),  href = 'https://www.baidu.com'),
            dict(color = 'blue', icon = icon("publish"),       href = 'https://www.google.com'),
           ], loc = 'fixed', color = 'purple', icon = icon("publish"))
 
+# create a form
 a_form = form(
             Seq(
             input_field(grid(s=12), field_name = 'Username', type = 'text',     icon = icon('mode_edit'), id = 'for-username'),
@@ -83,7 +88,8 @@ a_form = form(
             ),
             action = 'script',
             method = 'POST')
-
+            
+# let container contain a sequence of Incantation objects.
 main.contains(Seq(try_columns, 
                   a_row, 
                   col(dd, grid(l = 12)),
@@ -91,13 +97,15 @@ main.contains(Seq(try_columns,
                   b_row, 
                   try_table, 
                   a_table, 
-                  cs, 
+                  collect, 
                   fab, 
                   raised(icon = icon('add_alarm'), name = "YHZ", href = 'https://www.baidu.com'),
                   a_form
                   ))
+# set indent recursively
 main.setIndent(1)
 
+# create a page and write it to some path.
 page = Page( Seq(nav,main) )
 page.write(to = './test.html')
 

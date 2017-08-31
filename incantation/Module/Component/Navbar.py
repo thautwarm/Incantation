@@ -11,7 +11,7 @@ from ..abst import abstract_object,indent_setter, default_attr, attrset_sugar, S
 
 class navbar(indent_setter, abstract_object):
     """
-    See http://materializecss.com/forms.html
+    See http://materializecss.com/navbar.html
     user help : >> help (navbar.init)
         Guide:
             navbar(
