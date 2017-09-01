@@ -1,0 +1,3 @@
+include ReadMe.md LICENSE
+recursive-include incantation *.py *.rst *.md 
+recursive-include static *.woff2 *.woff *.js *.css

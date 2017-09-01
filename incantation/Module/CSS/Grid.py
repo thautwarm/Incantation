@@ -80,6 +80,9 @@ class col(indent_setter, abstract_object):
 class divider(indent_setter, abstract_object):
     """
     See http://materializecss.com/grid.html.
+        Guide :
+            a_divider = divider() # take no parameter!
+            
     """
     def init(self,*args, **kwargs):
         self.body =\
@@ -118,7 +121,10 @@ class grid(abstract_object, dict):
     user help:
         >>> col("content here!", grid(m=5, s= 8, l=3).roffset(grid(s=3,m=1,l=1)) )
         >>> col("content here!", grid(m=5, s= 8, l=3).roffset(grid(s=3,m=1,l=1)).loffser(3) ) # s=3, m = 3//2, l = 3//3
-        >>> col("content here!", grid(m=5, s= 8, l=3).roffset(grid(s=3,m=1,l=1)).loffser(s = 3, m = 2, l =1))
+        >>> col("content here!", grid(m=5, s= 8, l=3)          \
+                                    .roffset(grid(s=3,m=1,l=1))\
+                                    .loffser(s = 3, m = 2, l =1)
+                )
     """    
     def init(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)       
