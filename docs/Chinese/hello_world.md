@@ -8,7 +8,7 @@
 ```python
 from incantation.Module.CSS.Table import table
 ```
-对于有些组件，例如`grid`，在materialize-css文档下与多个对象，包含`container`, `col`, `row`, `section`, `divider`，则在Incantation里，我们使用如下代码导出其中的对象。
+对于有些概念，例如`grid`，在materialize-css的文档下有多个相关组件，包含`container`, `col`, `row`, `section`, `divider`，则在Incantation里，我们使用如下代码导出其中的组件(`Incantation object`)。
 ```python
 from incantation.Module.CSS.Grid import container, col, row, section, divider, grid
 # grid 对象用来表示一个Incantation对象在大、中、小屏幕上所占的格数。屏幕一行为12格。
