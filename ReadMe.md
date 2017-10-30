@@ -2,10 +2,15 @@
 
 # Incantation 
 
-
 See [codes in Here](https://github.com/thautwarm/Incantation/tree/master/incantation)
 
 This library is written by `flowpython`(so it just support Python 3.6.x now...), which makes the codes much more readable.
+
+**P.S** Flowpython running on Python 3.6.3 has some bugs, especially at `pip`. You can use a virtual environment like Python 3.6.1 and Python 3.6.2. If you use `anaconda` distributions, both Anaconda 4.4.0 and Miniconda 4.3.27 are okay.
+
+
+## Docs
+- [Chinese, 简体中文]()
 
 ## A Simple Guide
 

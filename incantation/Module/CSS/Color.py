@@ -1,19 +1,18 @@
 from ..abst import abstract_object
 
-class color(abstract_object):
+class color:
         """
         Number of input arguments should be 1 or 3.
         See http://materializecss.com/color.html.
         """
-        def init(self,  major  : "blue,red,yellow, ..."     = "blue",
-                        degree : "lighten, darken, accent"  = "",
-                        micro  : "int, None" = ""):
+        def __new__(major  : "blue,red,yellow, ..."     = "blue",
+                    degree : "lighten, darken, accent"  = "",
+                    micro  : "int, None" = ""):
             if degree and micro:
-                self.conf.update(dict(major = major , degree = degree, micro = micro))
-                self.body = "{{major}} {{degree}}-{{micro}}"
+                return f"{{major}} {{degree}}-{{micro}}"
             else:
-                self.conf.update(dict(major = major))
-                self.body = "{{major}}"
+                return f"{{major}}"
+                
 
             
 Red    = color( major = 'red'   )
