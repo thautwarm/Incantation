@@ -81,6 +81,45 @@ app.run('localhost')
 ```
 
 
+## Divider和Section
+
+divider能够提供分割线。
+要使用divider对象，直接使用
+
+```python
+split = divider()
+```
+即可初始化一个分割线对象。
+
+关于section对象，具体请查看materialize-css。
+
+以下是一个section和divider使用的例子(divider颜色较浅，请仔细查看...
+
+[![divsec](./divsec.PNG)](./divsec.PNG)
+
+```python
+from incantation.template import Page 
+from incantation.Module.abst import Seq
+from incantation.Module.CSS.Grid import divider, section, container
+from flask import Flask
+app = Flask(__name__)
+app.debug = True
+
+@app.route('/', methods=['GET'])
+def index():
+    main = container()
+    main.contains(
+                Seq(section('<h5>A</h5><p>a</p>'),
+                    divider(),
+                    section('<h>B</h><p>b</p>')
+                    )
+                )
+    return Page(main).gen()
+
+app.run('localhost')
+```
+
+ 
 
 
 
