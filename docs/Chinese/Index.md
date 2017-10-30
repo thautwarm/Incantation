@@ -10,7 +10,7 @@
 
 - Module模块
     - CSS
-        - [颜色](./color.md)
+        - [颜色](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/color.md)
 
     
 
