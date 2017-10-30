@@ -12,6 +12,7 @@
     - CSS
         - [颜色](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/color.md)
         - [布局](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/grid.md)
+        - [Helpers](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/Helpers.md)
 
     
 
