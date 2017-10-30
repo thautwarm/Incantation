@@ -10,7 +10,7 @@ This library is written by `flowpython`(so it just support Python 3.6.x now...),
 
 
 ## Docs
-- [Chinese, 简体中文]()
+- [Chinese, 简体中文](./docs/Chinese/index.md)
 
 ## A Simple Guide
 
