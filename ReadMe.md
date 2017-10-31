@@ -13,10 +13,10 @@ The release package is totally made up of `pyc` files, which're compiled from `f
 ## Install
 
 ```
-pip install Incantation
+pip install -U Incantation
 ```
 
-Take care that you'd better clone the static sources in this project to root of the directory of your web-app.
+Take care that you'd better clone the [static sources](https://github.com/thautwarm/Incantation/releases/download/0.3/static.7z) in this project to root of the directory of your web-app.
 
 
 
