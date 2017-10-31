@@ -1,4 +1,4 @@
-
+[![PyPI version](https://img.shields.io/pypi/v/Incantation.svg)](https://pypi.python.org/pypi/Incantation)
 
 # Incantation 
 
@@ -6,7 +6,18 @@ See [codes in Here](https://github.com/thautwarm/Incantation/tree/master/incanta
 
 This library is written by `flowpython`(so it just support Python 3.6.x now...), which makes the codes much more readable.
 
-**P.S** Flowpython running on Python 3.6.3 has some bugs, especially at `pip`. You can use a virtual environment like Python 3.6.1 and Python 3.6.2. If you use `anaconda` distributions, both Anaconda 4.4.0 and Miniconda 4.3.27 are okay.
+**P.S**   
+Running on Python 3.6, you can use pip to install it. If you want to compile the source codes you should install `flowpython`.  
+The release package is totally made up of `pyc` files, which're compiled from `flowpython sources` and then can be executed on `CPython 3.6`.  
+
+## Install
+
+```
+pip install Incantation
+```
+
+Take care that you'd better clone the static sources in this project to root of the directory of your web-app.
+
 
 
 ## Docs

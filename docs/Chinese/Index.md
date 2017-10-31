@@ -5,7 +5,7 @@
 
 - Beginning
 
-    - [配置静态文件和flowpython](./static_conf.md)。  
+    - [配置静态文件](./static_conf.md)。  
     - [快速上手的例子](./hello_world.md)。
 
 - Module模块  

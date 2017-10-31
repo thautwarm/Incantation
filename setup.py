@@ -13,7 +13,7 @@ else:
     import os
     cat = os.path.join
     setup(name='Incantation',
-      version='0.2.3',
+      version='0.3',
       keywords='website, web-design',
       description = "Python Object Design about Website. Make Developing websites like saying incantations.",
       long_description=readme,
