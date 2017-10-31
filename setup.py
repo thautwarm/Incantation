@@ -14,7 +14,7 @@ else:
     cat = os.path.join
     setup(
         name = 'Incantation',
-        version = '0.1.2',
+        version = '0.2.2',
         keywords='website, web-design',
         description = "Python Object Design about Website. Make Developing websites like saying incantations.",
         long_description=readme,
@@ -27,9 +27,6 @@ else:
         platforms  = ['windows','linux'],
         classifiers=['Programming Language :: Python :: 3.6','Programming Language :: Python :: Implementation :: CPython'],
         install_requires=[
-        'flowpython>=0.2.3',
-	'jinja2'
+	    'jinja2'
         ]
     )
-
-    os.system("python -m flowpython -m enable")
