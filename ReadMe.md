@@ -1,6 +1,8 @@
 [![PyPI version](https://img.shields.io/pypi/v/Incantation.svg)](https://pypi.python.org/pypi/Incantation)
 [![Build Status](https://travis-ci.org/thautwarm/Incantation.svg?branch=master)](https://travis-ci.org/thautwarm/Incantation)
 [![MIT License](https://img.shields.io/badge/license-MIT-yellow.svg)](https://github.com/thautwarm/Incantation/blob/master/LICENSE)
+[![codecov](https://codecov.io/gh/thautwarm/Incantation/branch/master/graph/badge.svg)](https://codecov.io/gh/thautwarm/Incantation)
+
 
 # Incantation 
 
