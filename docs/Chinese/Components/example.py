@@ -37,9 +37,15 @@ class badges:
     
     def collapsibles():
         main = container()
-        collap = collapsible([(icon('filter_drama'),badge(href = '#!', name = "First") , "<p>Lorem ipsum dolor sit amet.</p>"),
-                      (icon('place'),       badge(href = '#!', name = "Second"), "place")
-                     ])
+        collap = collapsible([
+                (icon('filter_drama'),
+                 badge(href = '#!', name = "First") ,
+                 "<p>Lorem ipsum dolor sit amet.</p>"),
+                
+                (icon('place'),
+                 badge(href = '#!', name = "Second"), 
+                 "place")])
+                 
         main.contains(collap)
         return Page(main).gen()
 
