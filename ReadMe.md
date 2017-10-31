@@ -7,7 +7,7 @@ See [codes in Here](https://github.com/thautwarm/Incantation/tree/master/incanta
 This library is written by `flowpython`(so it just support Python 3.6.x now...), which makes the codes much more readable.
 
 **P.S**   
-Running on Python 3.6, you can use pip to install it. If you want to compile the source codes you should install `flowpython`.  
+Running on Python 3.6, it can be installed by using `pip`. If you want to compile the source codes you should install `flowpython`.  
 The release package is totally made up of `pyc` files, which're compiled from `flowpython sources` and then can be executed on `CPython 3.6`.  
 
 ## Install
