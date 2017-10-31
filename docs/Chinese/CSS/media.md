@@ -6,8 +6,9 @@
 from incantation.Module.CSS.Media import responsive_video, img, video_container
 ```
 
-我想我可以照搬`docstring`, 因为这方面我做得太过完善:)
-当你在`ipython`中输入如下代码
+我想我可以照搬`docstring`, 因为这方面我做得太过完善:)  
+非常建议你使用jupyter-qtconsole来更好的使用代码文档。
+安装jupyter-qtconsole的方法请查看此处[How to Install Jupyter](./jupyter.md)。
 
 [![help](./help.PNG)](./help.PNG)
 
