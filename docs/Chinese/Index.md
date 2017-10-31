@@ -28,7 +28,7 @@
 
 - Components
 
-    - [徽章Badges](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/badges.md)
+    - [徽章](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/badges.md)
 
     
 
