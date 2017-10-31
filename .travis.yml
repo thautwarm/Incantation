@@ -6,6 +6,6 @@ python:
 install:
   - pip install Incantation
 script:
-  - pythont ./test/test.py
+  - python ./test/test.py
 
 
