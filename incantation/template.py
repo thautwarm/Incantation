@@ -34,12 +34,12 @@ class Page:
     def __init__(self, body = ""):
         self.body = gen_helper(body) 
     def __str__(self):
-        return Template(Body).render(body  = self.body)
+        return Template(Body).render(body=self.body)
     def write(self, to = './test.html'):
         with open(to, 'w', encoding = 'utf-8') as f:
-            Template(Body).render(body  =  self.body) ->> f.write
+            f.write(Template(Body).render(body=self.body))
     def gen(self):
-        return Template(Body).render(body  = self.body)
+        return Template(Body).render(body=self.body)
         
 
         

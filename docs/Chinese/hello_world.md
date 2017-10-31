@@ -2,7 +2,7 @@
 # 快速上手的例子
 
 迄今为止，Incantation的API和materialize-css保持完全的一致。
-我们举例子， 要使用`table`对象，在其在materialize-css的文档中处于CSS目录下,
+我们举例子， 要使用`table`对象，其在materialize-css的文档中处于CSS目录下,
 [http://materializecss.com/table.html](http://materializecss.com/table.html)。  
 则， `table`在Incantation中可以如此导出。
 ```python
@@ -60,13 +60,13 @@ from incantation.Module.CSS.Grid import container, col, row, section, divider, g
 
 
     def myPage(name):
-        
-
+    
         main = container() 
 
         welcome = blockquote(f"Welcome to Incantation, {name}!")
 
         title = blockquote("Incantation使用者的评价反馈")
+
         users = table(["姓名", "评价", "日期"],
                     [["Misakawa", "我自己做的，还能不给自己好评吗？完美的抽象！10/10分！", "2017-10-28"],
                     ["Thautwarm", "上面那个是我小号...", "2017-10-28"],
@@ -97,15 +97,13 @@ from incantation.Module.CSS.Grid import container, col, row, section, divider, g
 
     app = Flask(__name__)
     app.debug = True
-
     @app.route('/', methods=['GET'])
     def index():
         return myPage("萌新")
-
     app.run('localhost')
     ```
 
-执行`python index.py`后，直接访问[localhost:5000](http://localhost:5000/)即可。
+执行`python hw.py`后，直接访问[localhost:5000](http://localhost:5000/)即可。
 
 
 
