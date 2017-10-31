@@ -1,0 +1,5 @@
+# https://docs.codecov.io/docs/ignoring-paths
+ignore:
+  - "flowpython.incantation/*"
+  - "pycomp.py"
+  - "mcomp.py"
