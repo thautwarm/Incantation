@@ -1,4 +1,3 @@
-materialize/
-materialize
 __pycache__/
+*.pyc
 
