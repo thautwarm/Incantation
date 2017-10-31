@@ -2,7 +2,7 @@
 
 # Incantation 
 
-See [codes in Here](https://github.com/thautwarm/Incantation/tree/master/incantation)
+See [codes in Here](https://github.com/thautwarm/Incantation/tree/master/flowpython.incantation)
 
 This library is written by `flowpython`(so it just support Python 3.6.x now...), which makes the codes much more readable.
 

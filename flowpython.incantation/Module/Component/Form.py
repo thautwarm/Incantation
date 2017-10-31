@@ -43,6 +43,9 @@ class input_field(col):
             body =\
 """
 {{indent}}<div {{attributes_dict}}>
+{% if icon %}
+{{indent+Indent_unit}}<i class="material-icons prefix">{{icon}}</i>
+{% endif %}
 {{indent+Indent_unit}}<input id="{{id}}" name = "{{id}}" class="{{class}}" type = "{{type}}">
 {{indent+Indent_unit}}<label for="{{id}}">{{field_name}}</label>
 {{indent}}</div>
