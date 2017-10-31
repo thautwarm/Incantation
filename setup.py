@@ -12,21 +12,23 @@ if input("Do you approve the license terms? [yes|no]") != 'yes':
 else:
     import os
     cat = os.path.join
-    setup(
-        name = 'Incantation',
-        version = '0.2.2',
-        keywords='website, web-design',
-        description = "Python Object Design about Website. Make Developing websites like saying incantations.",
-        long_description=readme,
-        license = 'MIT License',
-        url = 'https://github.com/thautwarm/Incantation',
-        author = 'Thautwarm',
-        author_email = 'twshere@outlook.com',
-        packages=['incantation'],
-        include_package_data = True,
-        platforms  = ['windows','linux'],
-        classifiers=['Programming Language :: Python :: 3.6','Programming Language :: Python :: Implementation :: CPython'],
-        install_requires=[
-	    'jinja2'
+    setup(name='Incantation',
+      version='0.2.3',
+      keywords='website, web-design',
+      description = "Python Object Design about Website. Make Developing websites like saying incantations.",
+      long_description=readme,
+      license='GPLv3.0 License',
+      url = 'https://github.com/thautwarm/Incantation',
+      author='thautwarm',
+      author_email='twshere@outlook.com',
+      include_package_data=True,
+      packages=['incantation'],
+      platforms='any',
+      classifiers=['Programming Language :: Python :: 3.6',
+                   'Programming Language :: Python :: Implementation :: CPython'],
+      zip_safe=False,
+      install_requires=[
+        'jinja2'
         ]
-    )
+      )
+    
