@@ -19,7 +19,16 @@
         - [布局](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/grid.md)
         - [Helpers](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/helpers.md)
         - [媒体](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/CSS/media.md)
-        
+
+        - 其他  
+        其他组件均可通过在对象的`class`里添加对应值来应用。  
+        例如在`class`的头部添加值，`obj.cons_class('btn btn-floating pulse')`;  
+        或者在尾部进行`obj.append_class('btn btn-floating pulse')`。  
+        原则上可以为对象的任何属性添加任何字符串，`obj.append_attr('class')('btn btn-floating pulse')`。
+
+- Components
+
+    - [徽章Badges](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/badges.md)
 
     
 
