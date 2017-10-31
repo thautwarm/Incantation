@@ -1,4 +1,4 @@
-from incantation.Module.CSS.Grid import container, col, row, grid, section
+from incantation.Module.CSS.Grid import container, col, row, grid, section, divider
 from incantation.Module.CSS.Color import Indigo 
 from incantation.Module.CSS.Helpers import align, left_align, right_align, center_align
 from incantation.Module.CSS.Media import video_container
@@ -13,7 +13,7 @@ from incantation.Module.Component.Button import FAB, raised
 from incantation.Module.Component.Form import form, input_field
 from incantation.Module.Component.Navbar import navbar
 from flask import Flask, g, request, render_template, url_for, redirect
-
+import incantation.Module.Component.Icons as Icons
 class badges:
     @staticmethod
     def collections():
@@ -48,6 +48,53 @@ class badges:
                  
         main.contains(collap)
         return Page(main).gen()
+
+class forms:
+    @staticmethod
+    def normal():
+        main = container()
+        a_form = form(
+                      Seq("<br>"*2,
+                          divider(),
+                          input_field(grid(l=10), 
+                                    field_name='username', 
+                                    type='text', 
+                                    icon=Icons.account_circle,
+                                    id='username'),
+
+                          input_field(grid(l=10),
+                                    field_name='password',
+                                    type='password',
+                                    icon=icon('exposure_plus_1'),
+                                    id='password'
+                                )
+                         )
+                     )
+        main.contains(a_form)
+        return Page(main).gen()
+    @staticmethod
+    def multifields():
+        main = container()
+        username = input_field(grid(l=5), 
+                        field_name='username', 
+                        type='text', 
+                        icon=Icons.account_circle,
+                        id='username')
+        password = input_field(grid(l=5),
+                        field_name='password',
+                        type='password',
+                        icon=icon('exposure_plus_1'),
+                        id='password')
+        a_row = row(Seq(username, password))
+        a_form = form(
+                      Seq("<br>"*2,
+                          divider(),
+                          a_row
+                        )
+                    )
+        main.contains(a_form)
+        return Page(main).gen()
+
 
 app = Flask(__name__)
 app.debug = True
