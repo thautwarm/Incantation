@@ -81,6 +81,20 @@ def index(gridNum):
 app.run('localhost')
 ```
 
+**P.S** `grid`的初始化可以选用两种方法
+
+- 声明大中小三种屏幕下的占位。
+    ```
+    grid(s=1, l=2, m=3)
+    ```
+- 声明大中小三种屏幕之一的占位, 这会按照`s:m:l=12:4:3`的比例换算。
+    ```
+    grid(s=10)
+    grid(l=5)
+    grid(m=12)
+    ```
+
+
 
 ## Divider和Section
 
