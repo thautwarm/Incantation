@@ -1,5 +1,5 @@
 from incantation.Module.CSS.Grid import container, col, row, grid, section, divider
-from incantation.Module.CSS.Color import Indigo
+from incantation.Module.CSS.Color import Indigo, color
 from incantation.Module.CSS.Helpers import align, left_align, right_align, center_align
 from incantation.Module.CSS.Media import video_container
 from incantation.Module import abst
@@ -13,6 +13,7 @@ from incantation.Module.Component.Button import FAB, raised
 from incantation.Module.Component.Form import form, input_field
 from incantation.Module.Component.Navbar import navbar
 from flask import Flask, g, request, render_template, url_for, redirect
+
 import incantation.Module.Component.Icons as Icons
 
 
@@ -100,6 +101,35 @@ class forms:
         )
         main.contains(a_form)
         return Page(main).gen()
+    
+class button:
+    @staticmethod
+    def raised():
+        raised = globals()['raised']
+        more   = raised(icon = icon('cloud'), name = "  More", href = 'https://www.zhihu.com') 
+        a_row  = row(more)
+        right_align(a_row)
+
+        more.cons_class(color('green').gen())
+
+        collection=\
+        collections([badge(new=True, href='#!', num=1, name='今日新闻'),
+                     badge(new=True, href='#!', num=4, name='鬼畜专区'),
+                     badge(href='#!', name='哲学论坛'),
+                     badge(new=False, href='#!', num=14, name='血条众筹'),
+                     
+                    ])
+        
+        main = container()
+        main.contains(Seq(collection,a_row))
+        return Page(main).gen()
+
+    def fab():
+        fab = FAB([dict(color = 'red',  icon = icon("insert_chart"),  href = "#"),
+                   dict(color = 'blue', icon = icon("publish"),       href = "#"),
+                  ], 
+                 color='red', horizon=True)
+        return Page(fab).gen()
 
 
 app = Flask(__name__)

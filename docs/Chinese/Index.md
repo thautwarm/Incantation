@@ -26,8 +26,9 @@
         或者在尾部进行`obj.append_class('btn btn-floating pulse')`。  
         原则上可以为对象的任何属性添加任何字符串，`obj.append_attr('class')('btn btn-floating pulse')`。
 
-- Components
+    - Components
 
-    - [徽章](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/badges.md)
-    - [表单](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/form.md)
+        - [徽章](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/badges.md)
+        - [表单](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/form.md)
+        - [按钮](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/button.md)
 

@@ -91,4 +91,3 @@ class form(indent_setter, abstract_object):
 
 详情见[abst.py](https://github.com/thautwarm/Incantation/blob/master/flowpython.incantation/Module/abst.py)
 
-
