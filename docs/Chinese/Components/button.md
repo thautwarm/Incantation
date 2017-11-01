@@ -21,7 +21,7 @@ more.cons_class(color('green').gen())
 
 ## Fixed Action Button
 
-一般固定在右下角。
+一般固定在右下角, PC端鼠标悬浮后弹出子Icon，手机端点击亦然。
 
 [![button+fab](./button+fab.PNG)](./button+fab.PNG)
 

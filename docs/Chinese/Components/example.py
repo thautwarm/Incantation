@@ -5,7 +5,7 @@ from incantation.Module.CSS.Media import video_container
 from incantation.Module import abst
 from incantation.Module import blockquote
 from incantation.Module.CSS.Table import table
-from incantation.Module.abst import default_conf, gen_helper, Seq
+from incantation.Module.abst import default_conf, gen_helper, Seq, abstract_object,indent_setter, default_attr, attrset_sugar
 from incantation.template import Page
 from incantation.Module.Component.Badges import collections, dropdown, badge, collapsible
 from incantation.Module.Component.Icons import icon
@@ -130,6 +130,77 @@ class button:
                   ], 
                  color='red', horizon=True)
         return Page(fab).gen()
+
+class sidenav(indent_setter, abstract_object):
+
+    @default_attr('class', 'side-nav fixed') 
+    # attributes有默认属性 class = "side-nav fixed"
+    # 可使用 obj.append_class(arg:str)和obj.cons_class(arg:str)添加class的值。
+    def init(self, content, **attributes):
+        sugar = attrset_sugar(self.conf, attributes)
+
+        # self.conf 是用来渲染Jinja2模板的参数字典。
+        
+        sugar('id', 'slide-out') # 从attributes里取出id, 赋值给self.conf['id']中
+        # 若attributes中不存在键id, 则赋值'side-out'给self.conf['id']
+
+        sugar('background', 'teal')
+        # 默认背景为 纯色teal
+
+        sugar('header', None) # 默认不进行用户设置
+        # 默认背景为 纯色teal
+
+        body = \
+"""
+<script>$(document).ready(function(){
+ $(".button-collapse").sideNav();
+});
+</script>
+<ul id="{{id}}" {{attributes_dict}}>
+    <li>
+        <div class="userView">
+
+            <div class="background {{background}}"></div>
+
+            {% if header %}
+            {% for item in header %}
+                <a href="{{item.href}}">{{item.content}}</a>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+    </li>
+
+{% for component in content %}
+    <li>
+        {{component.gen()}}
+    </li>
+{% endfor %}
+</ul>
+<a href="#" data-activates="{{id}}" class="button-collapse"><i class="material-icons">menu</i></a>
+""" 
+
+        self.conf.update(dict(content = content, indent = '',  attributes_dict = attributes))
+        self.body = body
+
+    @staticmethod
+    def test():
+        main = container()
+        content1 = \
+        collections([badge(href='#!', num=1, name='今日新闻'),
+                     badge(href='#!', num=4, name='鬼畜专区'),
+                     badge(href='#!', name='哲学论坛'),
+                     badge(href='#!', num=14, name='血条众筹'),
+                     
+                    ])
+        content2 = \
+        collapsible([(icon('filter_drama'),badge(href = '#!', name = "First") , "<p>Lorem ipsum dolor sit amet.</p>"),
+                     (icon('place'),       badge(href = '#!', name = "Second"), "place")
+                     ])
+        side = col(sidenav([content2, content1]), grid(l=2).loffset(6))
+        main.contains(side)
+        return Page(main).gen()
+        
 
 
 app = Flask(__name__)

@@ -32,3 +32,5 @@
         - [表单](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/form.md)
         - [按钮](https://github.com/thautwarm/Incantation/blob/master/docs/Chinese/Components/button.md)
 
+    - [写自己的组件](./diy.md)
+        
