@@ -1,4 +1,5 @@
 *.kt  linguist-language=Kotlin
 *.java linguist-language=Java
 *.py linguist-language=Python
-*.js  diff=nodiff
+*.js  linguist-language=Python
+*.css  linguist-language=Python
