@@ -27,6 +27,7 @@ class input_field(col):
         sugar = attrset_sugar(self.conf, attributes)
         sugar('icon', None)
         sugar('id', 'Some Id')
+        sugar('value', None)
         sugar('type', 'text')
         sugar('field_name', 'Some Field')
         if self.conf['type'].lower() == 'submit':
@@ -46,7 +47,7 @@ class input_field(col):
 {% if icon %}
 {{indent+Indent_unit}}<i class="material-icons prefix">{{icon}}</i>
 {% endif %}
-{{indent+Indent_unit}}<input id="{{id}}" name = "{{id}}" class="{{class}}" type = "{{type}}">
+{{indent+Indent_unit}}<input id="{{id}}" name="{{id}}" class="{{class}}" type="{{type}}"{%- if value %} value="{{value}}" {% endif %}>
 {{indent+Indent_unit}}<label for="{{id}}">{{field_name}}</label>
 {{indent}}</div>
 """ 

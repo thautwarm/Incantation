@@ -8,12 +8,16 @@ Created on Thu Aug 31 14:53:43 2017
 
 from ..abst import abstract_object,indent_setter, Seq, default_attr, attrset_sugar
 
-def badge(name, href = '#!', new:{True,False,None} = None,  num = "", color = ''):
-    if new is None:
-        return dict(href=href, style=f"{name}")
-    class_ = 'new badge' if new else 'badge'
-    if color: class_ += color
-    return dict(href = href, style = f'{name}<span class="{class_}">{num}</span>')
+class badge:
+    """
+    badge(name, new=False, href='', color='')
+    """
+    def __new__(self, name, href = '#!', new:{True,False,None} = None,  num = "", color = ''):
+        if new is None:
+            return dict(href=href, style=f"{name}")
+        class_ = 'new badge' if new else 'badge'
+        if color: class_ += color
+        return dict(href = href, style = f'{name}<span class="{class_}">{num}</span>')
         
 
 class collections(indent_setter, abstract_object):
