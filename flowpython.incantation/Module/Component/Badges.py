@@ -106,7 +106,11 @@ class collapsible(indent_setter, abstract_object):
 {{indent+Indent_unit}}<li>
 {{indent+Indent_unit}}<div class="collapsible-header">
 {{indent+Indent_unit}}{{item[0]}}
+{{indent+Indent_unit}}{% if item[1].href %}
 {{indent+Indent_unit}}<a href="{{item[1].href}}">{{item[1].style}}</a>
+{{indent+Indent_unit}}{% else -%}
+{{indent+Indent_unit}}{{item[1].style}}
+{{indent+Indent_unit}}{%- endif %}
 {{indent+Indent_unit}}</div>
 {{indent+Indent_unit}}<div class="collapsible-body">
 {{indent+Indent_unit}}{{item[2]}}

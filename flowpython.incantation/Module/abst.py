@@ -19,7 +19,8 @@ def gen_helper(render) -> ('dict -> dict', 'otherwise -> str'):
             render ->> foreach( key_func ) where:
                 key_func = as-with key def None where:
                     render[key] = gen_helper(render[key]) -> _ if key != 'attributes_dict' else dict_str(_)
-                    
+
+                
         (checktype(abstract_object))
         case True               => 
             render = render.gen()
