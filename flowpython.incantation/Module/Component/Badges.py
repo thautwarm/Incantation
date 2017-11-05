@@ -13,12 +13,16 @@ class badge:
     badge(name, new=False, href='', color='')
     """
     def __new__(self, name, href = '#!', new:{True,False,None} = None,  num = "", color = ''):
-        if new is None:
-            return dict(href=href, style=f"{name}")
-        class_ = 'new badge' if new else 'badge'
-        if color: class_ += color
-        return dict(href = href, style = f'{name}<span class="{class_}">{num}</span>')
         
+        class_ = 'new badge' if new else 'badge'
+        
+        if color: class_ += color
+        res = f'{name}<span class="{class_}">{num}</span>'
+
+        if href:
+            res = f'<a href="{href}">{res}</a>'
+        
+        return res
 
 class collections(indent_setter, abstract_object):
     """
@@ -45,7 +49,7 @@ class collections(indent_setter, abstract_object):
 """
 {{indent}}<div {{attributes_dict}}>
 {{indent+Indent_unit}}{% for badge in content%}
-{{indent+Indent_unit*2}}<a href="{{badge.href}}" class="collection-item">{{badge.style}}</a>
+{{indent+Indent_unit*2}}<div class="collection-item">{{badge}}</div>
 {{indent+Indent_unit}}{% endfor %}
 {{indent}}</div>
 """      
@@ -72,7 +76,7 @@ class dropdown(indent_setter, abstract_object):
 """
 {{indent}}<ul id="{{id}}" class="dropdown-content">
 {{indent+Indent_unit}}{% for badge in content%}
-{{indent+Indent_unit*2}}<li><a href="{{badge.href}}">{{badge.style}}</a></li>
+{{indent+Indent_unit*2}}<li>{{badge}}</li>
 {{indent+Indent_unit}}{% endfor %}
 {{indent}}</ul>
 {{indent}}<a {{attributes_dict}} data-activates="{{id}}">{{name}}<i class="material-icons right">{{material_icons}}</i></a>
@@ -103,21 +107,23 @@ class collapsible(indent_setter, abstract_object):
     @default_attr(attr = 'class', value = "collapsible")
     @default_attr(attr = 'data-collapsible', value = 'accordion')
     def init(self, content, **attributes):
+        sugar = attrset_sugar(self.conf, attributes)
+        sugar('active', False)
         body = \
 """
 {{indent}}<ul {{attributes_dict}}>
 {{indent+Indent_unit}}{% for item in content %}
 {{indent+Indent_unit}}<li>
-{{indent+Indent_unit}}<div class="collapsible-header">
+{{indent+Indent_unit}}<div class="collapsible-header {%if active%}active{%- endif -%}">
 {{indent+Indent_unit}}{{item[0]}}
-{{indent+Indent_unit}}{% if item[1].href %}
-{{indent+Indent_unit}}<a href="{{item[1].href}}">{{item[1].style}}</a>
-{{indent+Indent_unit}}{% else -%}
-{{indent+Indent_unit}}{{item[1].style}}
-{{indent+Indent_unit}}{%- endif %}
+{{indent+Indent_unit}}{{item[1]}}
 {{indent+Indent_unit}}</div>
 {{indent+Indent_unit}}<div class="collapsible-body">
-{{indent+Indent_unit}}{{item[2]}}
+{{indent+Indent_unit*2}}<ul>
+{{indent+Indent_unit*2}}<li>
+{{indent+Indent_unit*3}}{{item[2]}}
+{{indent+Indent_unit*2}}</li>
+{{indent+Indent_unit*2}}</ul>
 {{indent+Indent_unit}}</div>
 {{indent+Indent_unit}}</li>
 {{indent+Indent_unit}}{% endfor %}

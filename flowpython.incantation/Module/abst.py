@@ -80,7 +80,10 @@ class abstract_object:
                                                      indent =self.conf['indent'], 
                                                      Indent_unit =default_conf['Indent_unit'])
         return rendered
-        
+    
+    def __str__(self):
+        return self.gen()
+                
     def common_init(self):
         """
         Do some common initial actions when initializing the Materialize-CSS object.
@@ -151,8 +154,8 @@ class Seq(list):
     """
     def __init__(self, *args):
         return super(Seq, self).__init__(args)
-    
-
+    def gen(self):
+        return gen_helper(self)
                     
                     
 

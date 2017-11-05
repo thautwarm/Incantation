@@ -47,14 +47,15 @@ class input_field(col):
 {% if icon %}
 {{indent+Indent_unit}}<i class="material-icons prefix">{{icon}}</i>
 {% endif %}
-{{indent+Indent_unit}}<input id="{{id}}" name="{{id}}" class="{{class}}" type="{{type}}"{%- if value %} value="{{value}}" {% endif %}>
 {{indent+Indent_unit}}<label for="{{id}}">{{field_name}}</label>
+{{indent+Indent_unit}}<input id="{{id}}" name="{{id}}" class="input-field {{class}}" type="{{type}}"{%- if value %} value="{{value}}" {% endif %}>
 {{indent}}</div>
 """ 
+        
         self.conf.update(dict(indent = " ", attributes_dict = attributes))
         self.append_class(grid.gen())
         self.body = body
-        self.cons_class("input-field")
+        
         
         
 class form(indent_setter, abstract_object):
