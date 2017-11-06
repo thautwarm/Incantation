@@ -13,7 +13,7 @@ else:
     import os
     cat = os.path.join
     setup(name='Incantation',
-      version='0.3.2',
+      version='0.3.3',
       keywords='website, web-design',
       description = "Python Object Design about Website. Make Developing websites like saying incantations.",
       long_description=readme,
@@ -23,6 +23,7 @@ else:
       author_email='twshere@outlook.com',
       include_package_data=True,
       packages=['incantation'],
+      package_dir ={'':'release'},
       platforms='any',
       classifiers=['Programming Language :: Python :: 3.6',
                    'Programming Language :: Python :: Implementation :: CPython'],
