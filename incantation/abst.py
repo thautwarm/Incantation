@@ -3,7 +3,7 @@ from abc import abstractmethod
 from collections import defaultdict
 from typing import Tuple, Optional, Union, Any, Callable
 from linq import Flow
-from .utils import isa, is_unque, doc_printer, default_initializer
+from .utils import isa, is_unque, doc_printer, default_initializer, ClassProperty
 
 
 class Format:
@@ -30,6 +30,10 @@ class Component:
         new = self.empty
         new.name = self.name
 
+        if hasattr(self, 'spec'):
+            new.spec = self.spec
+
+
         if hasattr(self, 'indent'):
             new.indent = self.indent
 
@@ -45,9 +49,10 @@ class Component:
     def set_indent(self, n):
         return self
 
-    @property
-    def empty(self):
-        return type(self)(super)
+    # noinspection PyCallingNonCallable
+    @ClassProperty
+    def empty(cls):
+        return cls(super)
 
     @abstractmethod
     def help(self):
@@ -172,7 +177,7 @@ class Tag(RecursiveIndent):
         return Format.Tag.format(name=self.name,
                                  indent=Format.Indent * self.indent,
                                  components='\n'.join(map(str, others)) if others else '\n' if self.indent <= 1 else '',
-                                 attributes=f' {"".join(map(str, attributes))}' if attributes else '')
+                                 attributes=f' {" ".join(map(str, attributes))}' if attributes else '')
 
     @doc_printer
     def help(self):
@@ -182,9 +187,6 @@ class Tag(RecursiveIndent):
 
 
 def traits_class(*args, inherit_from: 'class' = Tag, help: 'Callable' = None):
-    if help is None:
-        help = inherit_from.help
-
     def wrap(cls):
         @default_initializer
         def __init__(self, *components):

@@ -1,5 +1,5 @@
 from ..abst import Tag, Attribute, traits_class, ITraitsAttribute, ITraitsTag
-from ..utils import default_initializer, ClassProperty
+from ..utils import default_initializer, ClassProperty, doc_printer
 from typing import List, Optional
 from enum import Enum as enum
 
@@ -9,32 +9,56 @@ so I write it this way for auto-complement.
 """
 
 
-@traits_class('tr', inherit_from=Tag)
+class TableDoc:
+
+    @staticmethod
+    @doc_printer
+    def help(self):
+        """
+        See http://materializecss.com/table.html
+        >>> import incantation as inc
+        >>> table1 = inc.Table([[1, 2, 3], [2, 3, 4]], ['a', 'b', 'c'], index=[1, 2]).set_indent(1)
+        >>> table2 = inc.Table(data_source=[[1, 2, 3], [2, 3, 4]], column=['a', 'b', 'c']).set_indent(1)
+        >>> table3 : inc.Table = inc.Table.empty
+        >>> columns = ['a', 'b', 'c']
+        >>> data_source = [[1, 2, 3], [2, 3, 4]]
+        >>> table3.append(Attribute('class', inc.Table.Enum.centered.value),
+        >>>               inc.Thead(
+        >>>                   inc.Tr(*(inc.Th(column) for column in columns))),
+        >>>               inc.TBody(*(
+        >>>                    inc.Tr(*(inc.Td(each_col) for each_col in data))
+        >>>                    for data in data_source))))
+        """
+
+
+@traits_class('tr', inherit_from=Tag, help=TableDoc.help)
 class Tr(ITraitsTag):
     pass
 
 
-@traits_class('th', inherit_from=Tag)
+@traits_class('th', inherit_from=Tag, help=TableDoc.help)
 class Th(ITraitsTag):
     pass
 
 
-@traits_class('td', inherit_from=Tag)
+@traits_class('td', inherit_from=Tag, help=TableDoc.help)
 class Td(ITraitsTag):
     pass
 
 
-@traits_class('thead', inherit_from=Tag)
+@traits_class('thead', inherit_from=Tag, help=TableDoc.help)
 class Thead(ITraitsTag):
     pass
 
 
-@traits_class('tbody', inherit_from=Tag)
+@traits_class('tbody', inherit_from=Tag, help=TableDoc.help)
 class TBody(ITraitsTag):
     pass
 
 
 class Table(Tag):
+    help = TableDoc.help
+
     class Enum(enum):
         bordered = 'bordered'
         striped = 'striped'
@@ -69,6 +93,6 @@ class Table(Tag):
                              for row_idx, data in enumerate(data_source))))
 
 
-@traits_class('class', "responsive-table", inherit_from=Attribute)
+@traits_class('class', "responsive-table", inherit_from=Attribute, help=TableDoc.help)
 class ResponsiveTable(ITraitsAttribute):
     pass

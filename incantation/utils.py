@@ -38,17 +38,20 @@ def info(incatation_object, return_str=False, print_info=True):
     if not hasattr(incatation_object, 'help'):
         raise ArgumentError('Require an incantation objject.')
 
+    doc = incatation_object.help()
     if print_info:
-        incatation_object.help()
+        print(doc)
     if return_str:
-        return return_str
+        return doc
 
 
 def doc_printer(func):
     def wrap(*args, **kwargs):
-        print(f'{func.__qualname__}:')
-        print(func.__doc__)
-        return func(*args, **kwargs)
+        doc = f'{func.__qualname__}: \n {func.__doc__}'
+        if 'no_print' in kwargs or 'no_print' in args:
+            return doc
+        print(doc)
+        return doc
 
     return wrap
 
@@ -71,4 +74,3 @@ def default_initializer(init):
 
     update_wrapper(wrap, init)
     return wrap
-
