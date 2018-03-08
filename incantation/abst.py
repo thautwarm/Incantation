@@ -1,41 +1,24 @@
 from typing import Tuple, Optional, Union, Any
+from functools import singledispatch
 from abc import abstractmethod
-
 from collections import defaultdict
-
-from .utils import isa, is_unque
+from .utils import isa, is_unque, doc_printer
 from linq import Flow
 import copy as pycopy
 
 
 class Format:
     Tag = ('{indent}<{name} {attributes}>\n'
-           '{indent}{components}\n'
-           '{indent}</{name}>\n')
+           '{indent}{components}'
+           '{indent}</{name}>')
 
     Attribute = '{name}{eq}"{content}"'
     Indent = ' '
 
 
-class IIndent:
-    indent: int
-
-    @abstractmethod
-    def set_indent(self, n: int):
-        raise NotImplemented
-
-
 class Component:
     name: str
     components: 'Optional[Tuple[Component]]'
-
-    @property
-    def empty(self):
-        return type(self)(self.name)
-
-    @abstractmethod
-    def __str__(self):
-        raise NotImplemented
 
     def __iter__(self):
         yield self.name
@@ -46,26 +29,74 @@ class Component:
 
     def append(self, *components: 'Component'):
         new = self.empty
+        new.name = self.name
+
+        if hasattr(self, 'indent'):
+            new.indent = self.indent
+
         new.components = self.components + components
         return new
 
+    def set_indent(self, n):
+        return self
 
-class IndentWrapper(IIndent):
-    obj: 'Any'
+    @property
+    def empty(self):
+        return type(self)(super)
+
+    @abstractmethod
+    def help(self):
+        raise NotImplemented
+
+    @abstractmethod
+    def __str__(self):
+        raise NotImplemented
+
+
+class RecursiveIndent(Component):
+    indent: int
+
+    def set_indent(self, n: int):
+        new = self.empty
+
+        new.name = self.name
+        new.components = tuple(each.set_indent(n + 1) for each in self.components)
+        new.indent = n + 1
+
+        return new
+
+    @abstractmethod
+    def help(self):
+        raise NotImplemented
+
+    @abstractmethod
+    def __str__(self):
+        raise NotImplemented
+
+
+class IndentWrapper(Component):
+    __slots__ = ['components', 'name', 'indent']
+    components: 'Any'
 
     def __init__(self, obj, indent=1):
-        self.obj = obj
+        self.components = obj
         self.indent = indent
 
     def set_indent(self, n: int):
-        self.indent = n
+        return IndentWrapper(self.components, n)
 
     def __str__(self):
         head = f'\n{Format.Indent * self.indent}'
-        return head + str(self.obj).replace('\n', head)
+        return head + str(self.components).replace('\n', head)
 
     def copy(self, deep=False):
         return pycopy.deepcopy(self) if deep else pycopy.copy(self)
+
+    @doc_printer
+    def help(self):
+        """
+        the wrapper of the object which is not of incantation category.
+        """
 
 
 Object = Union[Component, str]
@@ -73,7 +104,10 @@ Object = Union[Component, str]
 
 class Attribute(Component):
 
-    def __init__(self, name, *components):
+    def __init__(self, name: str, *components):
+        if name is super:
+            return
+
         self.components = components
         self.name = name
 
@@ -82,19 +116,21 @@ class Attribute(Component):
                                        eq='' if not self.components else '=',
                                        content='' if not self.components else ' '.join(map(str, self.components)))
 
+    @doc_printer
+    def help(self):
+        """
+        represent the the attributes of blocks in XML.
+        """
 
-class Tag(IIndent, Component):
 
-    def __init__(self, name, *components, indent=1):
+class Tag(RecursiveIndent):
+    def __init__(self, name: str, *components, indent=1):
+        if name is super:
+            return
+
         self.name = name
-        self.components = components
+        self.components = tuple(comp if isa(comp, Component) else IndentWrapper(comp) for comp in components)
         self.indent = indent
-
-    def set_indent(self, n: int):
-        self.indent = n
-        for each in self.components:
-            if isinstance(each, IIndent):
-                each.set_indent(n + 1)
 
     def __str__(self):
         grouped = Flow(self.components).GroupBy(isa(type=Attribute)).Unboxed()
@@ -118,8 +154,17 @@ class Tag(IIndent, Component):
 
         return Format.Tag.format(name=self.name,
                                  indent=Format.Indent * self.indent,
-                                 components=f'{" "*self.indent}\n'.join(map(str, others)),
+                                 components='{}\n'
+                                 .format(f'{" "*self.indent}\n'.join(
+                                     map(str, others)))
+                                 if others else '\n' if self.indent <= 1 else '',
                                  attributes=' '.join(map(str, attributes)))
+
+    @doc_printer
+    def help(self):
+        """
+        represent the the blocks in XML.
+        """
 
 # tag.make('1', '2', attr.make('class', 'true'))
 # print(tag)
