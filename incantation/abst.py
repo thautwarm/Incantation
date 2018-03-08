@@ -51,7 +51,7 @@ class Component:
 
     # noinspection PyCallingNonCallable
     @ClassProperty
-    def empty(cls):
+    def empty(cls) -> 'Component':
         return cls(super)
 
     @abstractmethod

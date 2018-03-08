@@ -62,7 +62,44 @@ class Dropdown(Tag):
 
 
 class NavBar(Tag):
+    @default_initializer
+    def __init__(self, *components):
+        Tag.__init__(self, 'nav',
+                     Tag('div', Attribute('class', 'nav-wrapper')),
+                     *components)
+
+
+class BrandLogo(Tag):
+    @default_initializer
+    def __init__(self, href: str, logo_title: str, *components):
+        Tag.__init__(self, 'a', Attribute('href', str), Attribute('class', 'brand-logo'), logo_title, *components)
+
+    @doc_printer
+    def help(self):
+        """
+        >>> import incantation as inc
+        >>> navbar_with_logo = inc.BrandLogo(href='https://github.com/thautwarm/Incantation', logo_title='Incantation Project')
+        """
+
+
+class Collapsible(Tag):
 
     @default_initializer
     def __init__(self, *components):
-        Tag.__init__()
+        Tag.__init__(self, 'ul',
+                     Attribute('class', 'collapsible'),
+                     Attribute('data-collapsible', 'accordion'), *components)
+
+
+class CollapsibleHeader(Tag):
+
+    @default_initializer
+    def __init__(self, *components):
+        Tag.__init__(self, 'div', Attribute('class', 'collapsible-header'), *components)
+
+
+class DataBadgeCaption(Attribute):
+
+    @default_initializer
+    def __init__(self, arg="custom caption", *components):
+        Attribute.__init__(self, 'data-badge-caption', arg, *components)
