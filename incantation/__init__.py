@@ -1,6 +1,2 @@
-from .fp import foreach, groupby, andThen, compose, flow_map, flatten, fastmap
-__version__ = 0.1
-__author__ = "thautwarm"
-__license__ = "MIT"
-
-
+from .abst import *
+from .CSS import *

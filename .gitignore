@@ -1,9 +1,0 @@
-__pycache__/
-.git/
-.spyproject/
-static.7z
-.idea/
-.coverage
-coverage.xml
-build/
-dist/

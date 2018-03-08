@@ -1,5 +1,0 @@
-*.kt  linguist-language=Kotlin
-*.java linguist-language=Java
-*.py linguist-language=Python
-*.js  linguist-language=
-*.css  linguist-language=

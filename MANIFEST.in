@@ -1,3 +1,0 @@
-include ReadMe.md LICENSE
-recursive-include release/incantation .pyc
-include release/incantation
