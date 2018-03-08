@@ -2,16 +2,10 @@ from ..abst import Tag, Attribute, ITraitsAttribute, ITraitsTag, traits_class
 from ..utils import default_initializer, doc_printer
 
 
-class Collection(Tag):
-    @default_initializer
-    def __init__(self, *components):
-        Tag.__init__(self, 'div', Attribute('class', 'collection'), *components)
 
 
-class CollectionItem(Tag):
-    @default_initializer
-    def __init__(self, *components):
-        Tag.__init__(self, 'a', Attribute('class', 'collection-item'), *components)
+
+
 
 
 class Badge(Tag):

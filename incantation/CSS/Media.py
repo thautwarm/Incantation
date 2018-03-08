@@ -1,5 +1,24 @@
-from ..abst import Tag, Attribute
+from ..abst import Tag, Attribute, traits_class, ITraitsAttribute
 from ..utils import doc_printer, default_initializer
+
+
+class Img(Tag):
+    @default_initializer
+    def __init__(self, *components, src: str, alt: str = None):
+        if alt:
+            Tag.__init__(self, 'img',
+                         Attribute('src', src),
+                         Attribute('alt', alt),
+                         *components)
+        else:
+            Tag.__init__(self, 'img',
+                         Attribute('src', src),
+                         *components)
+
+
+@traits_class('class', 'responsive-img', inherit_from=Attribute)
+class IsResponsiveImg(ITraitsAttribute):
+    pass
 
 
 class ResponsiveImg(Tag):
@@ -22,6 +41,7 @@ class ResponsiveImg(Tag):
         """
         >>> import incantation as inc
         >>> inc.ResponsiveImg(src='xxx.png')
+        >>> inc.Img(inc.IsResponsiveImg(), src='xxx.png')
         """
 
 

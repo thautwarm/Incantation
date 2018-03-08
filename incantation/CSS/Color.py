@@ -45,7 +45,7 @@ class Color(Attribute):
             new.spec = (color_name, degree, micro_degree if micro_degree else 1)
 
         # TODO Lazy reuse to optimize
-        new.components = self.check_componnets((color_name, degree, micro_degree, *self.components[_len:]))
+        new.components = self.check_componnets((*filter(lambda x: x is not None, new.spec), *self.components[_len:]))
 
         return new
 
@@ -75,7 +75,7 @@ class Color(Attribute):
         new.spec = (color_name, degree, micro_degree)
 
         # TODO Lazy reuse to optimize
-        new.components = self.check_componnets((color_name, degree, micro_degree, *self.components[_len:]))
+        new.components = self.check_componnets((*filter(lambda x: x is not None, new.spec), *self.components[_len:]))
 
         return new
 

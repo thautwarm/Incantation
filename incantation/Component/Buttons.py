@@ -17,6 +17,11 @@ class ButtonToLarge(ITraitsAttribute):
     pass
 
 
+@traits_class('class', 'btn-flat', inherit_from=Attribute)
+class ButtonToFlat(ITraitsAttribute):
+    pass
+
+
 @traits_class('class', 'horizontal', inherit_from=Attribute)
 class Horizontal(ITraitsAttribute):
     pass
@@ -37,7 +42,7 @@ class Floating(ITraitsAttribute):
     pass
 
 
-class SubmitButton(Tag):
+class Submit(Tag):
     @default_initializer
     def __init__(self, *components):
         Tag.__init__(self, 'button',
