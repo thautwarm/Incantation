@@ -33,7 +33,6 @@ class Component:
         if hasattr(self, 'spec'):
             new.spec = self.spec
 
-
         if hasattr(self, 'indent'):
             new.indent = self.indent
 
@@ -199,7 +198,6 @@ def traits_class(*args, inherit_from: 'class' = Tag, help: 'Callable' = None):
 
 class ITraitsTag(Tag):
     # for auto-complement
-    @abstractmethod
     def __init__(self, *components):
         assert type(self) is Tag
         super().__init__(*components)
@@ -208,8 +206,17 @@ class ITraitsTag(Tag):
 
 class ITraitsAttribute(Attribute):
     # for auto-complement
-    @abstractmethod
     def __init__(self, *components):
         assert type(self) is Tag
         super().__init__(*components)
         raise NotImplemented
+
+
+def check_has_attributes(components, *attribute_names: str):
+    for each in attribute_names:
+        assert any(map(lambda x: x.name == each if isa(x, Attribute) else False, components))
+
+
+def check_has_tags(components, *tag_names: str):
+    for each in tag_names:
+        assert any(map(lambda x: x.name == each if isa(x, Tag) else False, components))

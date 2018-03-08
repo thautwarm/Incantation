@@ -74,3 +74,4 @@ def default_initializer(init):
 
     update_wrapper(wrap, init)
     return wrap
+

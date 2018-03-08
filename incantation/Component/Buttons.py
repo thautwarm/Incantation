@@ -1,6 +1,9 @@
 from ..abst import Attribute, Tag, traits_class, ITraitsTag, ITraitsAttribute, Component
 from ..utils import default_initializer
 
+if False:
+    import incantation as inc
+
 
 @traits_class('class', 'disabled', inherit_from=Attribute)
 class IsDisabledButton(ITraitsTag):
@@ -9,6 +12,11 @@ class IsDisabledButton(ITraitsTag):
 
 @traits_class('class', 'waves-effect waves-light', inherit_from=Attribute)
 class Raised(ITraitsAttribute):
+    pass
+
+
+@traits_class('class', 'btn', inherit_from=Attribute)
+class IsButton(ITraitsAttribute):
     pass
 
 
@@ -71,9 +79,10 @@ class Button(Tag):
 
 class FixActionButton(Tag):
     @default_initializer
-    def __init__(self, color: str, main_icon: 'Icon', *components: 'the list of sub icons'):
+    def __init__(self, color: 'inc.Color', main_icon: 'inc.Icon', *components: 'the list of sub icons'):
         Tag.__init__(self, 'div', Attribute('class', 'fixed-action-btn'),
-                     Tag('a', IsFloating(), IsLargeButton(), Attribute('class', color)),
+                     Tag('a', IsFloating(), IsLargeButton(), color),
+                     main_icon,
                      Tag('ul', *components))
 
     def append_sub_icon(self, *btns: 'tag name should be a with an icon inside'):
