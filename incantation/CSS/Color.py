@@ -16,12 +16,9 @@ class Color(Attribute):
 
     @default_initializer
     def __init__(self, color_name: str, degree: str = None, micro_degree: int = None):
-        self.color_name = color_name
-        self.degree = degree
-        self.micro_degree = micro_degree
+        self.spec = (color_name, degree, micro_degree)
 
-        types = tuple(map(type, [color_name, degree, micro_degree]))
-
+        types = tuple(map(type, self.spec))
         total_color_name_getter = {
             (str, str, int): lambda: f'{color_name} {degree}-{micro_degree}',
             (str, None.__class__, None.__class__): lambda: color_name
@@ -33,38 +30,57 @@ class Color(Attribute):
 
         Attribute.__init__(self, 'class', total_color_name_getter())
 
+    def switch(self, degree):
+        new = self.empty
+
+        new.name = self.name
+
+        color_name, degree, micro_degree = self.spec
+
+        _len = len(list(filter(lambda x: x is not None, self.spec)))
+
+        if degree is None:
+            new.spec = (color_name, None, None)
+        else:
+            new.spec = (color_name, degree, micro_degree if micro_degree else 1)
+
+        # TODO Lazy reuse to optimize
+        new.components = self.check_componnets((color_name, degree, micro_degree, *self.components[_len:]))
+
+        return new
+
     @property
     def lighten(self):
-        if self.degree == 'lighten':
-            return self
-        else:
-            return Color(self.color_name, 'lighten', self.micro_degree)
+        return self.switch('lighten')
 
     @property
     def darken(self):
-        if self.degree == 'darken':
-            return self
-        else:
-            return Color(self.color_name, 'darken', self.micro_degree)
+        return self.switch('darken')
 
     @property
     def accent(self):
-        if self.degree == 'accent':
-            return self
-        else:
-            return Color(self.color_name, 'accent', self.micro_degree)
+        return self.switch('accent')
 
     def lighten_by(self, n: int):
-        return Color(self.color_name, *(
-            self.degree_map['<',
-                            (self.degree_map['>',
-                                             (self.degree, self.micro_degree)] + n)]))
+        new = self.empty
+        new.name = self.name
+
+        color_name, degree, micro_degree = self.spec
+
+        _len = len(list(filter(lambda x: x is not None, self.spec)))
+
+        degree, micro_degree = self.degree_map['<',
+                                               self.degree_map['>', (degree, micro_degree)] + n]
+
+        new.spec = (color_name, degree, micro_degree)
+
+        # TODO Lazy reuse to optimize
+        new.components = self.check_componnets((color_name, degree, micro_degree, *self.components[_len:]))
+
+        return new
 
     def darken_by(self, n: int):
-        return Color(self.color_name, *(
-            self.degree_map['<',
-                            (self.degree_map['>',
-                                             (self.degree, self.micro_degree)] - n)]))
+        return self.lighten_by(-n)
 
     # TODO more default colors
     @ClassProperty

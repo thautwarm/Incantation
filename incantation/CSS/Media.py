@@ -27,7 +27,7 @@ class ResponsiveImg(Tag):
 
 class Video(Tag):
     @default_initializer
-    def __init__(self, src: str = None, width=853, height=480, allow_full_screen: bool = True):
+    def __init__(self, src: str, width=853, height=480, allow_full_screen: bool = True):
         Tag.__init__(self, 'div', Attribute('class', 'video-container'), IFrame(src, width, height, allow_full_screen))
 
     @doc_printer
@@ -40,7 +40,7 @@ class Video(Tag):
 
 class IFrame(Tag):
     @default_initializer
-    def __init__(self, src: str = None, width: int = None, height: int = None, allow_full_screen: bool = None):
+    def __init__(self, src: str, width: int, height: int, allow_full_screen: bool):
         arg_list = [Attribute('src', src),
                     Attribute('width', width),
                     Attribute('height', height)]
@@ -53,7 +53,7 @@ class IFrame(Tag):
 class ResponseVideo(Tag):
     @default_initializer
     def __init__(self, src: str, type: str = 'video/mp4'):
-        Tag.__init__(self, 'vedio',
+        Tag.__init__(self, 'video',
                      Attribute('class', 'responsive-video'), Attribute('controls'),
                      Tag('source',
                          Attribute('src', src), Attribute('type', type)))

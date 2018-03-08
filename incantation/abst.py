@@ -1,10 +1,23 @@
-from typing import Tuple, Optional, Union, Any
-from functools import singledispatch
+import copy as pycopy
 from abc import abstractmethod
 from collections import defaultdict
-from .utils import isa, is_unque, doc_printer
+from typing import Tuple, Optional, Union, Any
+
 from linq import Flow
-import copy as pycopy
+
+from .utils import isa, is_unque, doc_printer, default_initializer
+
+
+def traits_class(name, inherit_from: 'class'):
+    # def wrap(cls: 'class'):
+    #     class cls(inherit_from):
+    #         @default_initializer
+    #         def __init__(self, *components):
+    #             inherit_from.__init__(self, name, *components)
+    #
+    #     return cls
+
+    return wrap
 
 
 class Format:
@@ -60,7 +73,9 @@ class RecursiveIndent(Component):
         new = self.empty
 
         new.name = self.name
+
         new.components = tuple(each.set_indent(n + 1) for each in self.components)
+
         new.indent = n + 1
 
         return new
@@ -116,6 +131,10 @@ class Attribute(Component):
                                        eq='' if not self.components else '=',
                                        content='' if not self.components else ' '.join(map(str, self.components)))
 
+    @classmethod
+    def check_componnets(cls, components):
+        return tuple(components)
+
     @doc_printer
     def help(self):
         """
@@ -129,8 +148,12 @@ class Tag(RecursiveIndent):
             return
 
         self.name = name
-        self.components = tuple(comp if isa(comp, Component) else IndentWrapper(comp) for comp in components)
+        self.components = self.check_componnets(components)
         self.indent = indent
+
+    @classmethod
+    def check_componnets(cls, components):
+        return tuple(comp if isa(comp, Component) else IndentWrapper(comp) for comp in components)
 
     def __str__(self):
         grouped = Flow(self.components).GroupBy(isa(type=Attribute)).Unboxed()

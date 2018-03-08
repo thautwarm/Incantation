@@ -71,7 +71,7 @@ class Hide(Attribute):
 
 class Truncate(Attribute):
     @default_initializer
-    def __init__(self, *_):
+    def __init__(self):
         Attribute.__init__(self, 'class', 'truncate')
 
     @doc_printer

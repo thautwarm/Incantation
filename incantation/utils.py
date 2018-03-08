@@ -66,8 +66,9 @@ def default_initializer(init):
         if args and args[0] is super:
             mro = self.__class__.mro()
             mro[mro.index(self.__class__) + 1].__init__(self, super)
-        else:
-            init(self, *args, **kwargs)
+            return
+        init(self, *args, **kwargs)
 
     update_wrapper(wrap, init)
     return wrap
+
