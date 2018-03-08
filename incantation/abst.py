@@ -48,6 +48,28 @@ class Component:
     def set_indent(self, n):
         return self
 
+    def __rrshift__(self, other):
+        return self.append(other)
+
+    def __lshift__(self, other):
+        return self.append(other)
+
+    def __rshift__(self, other):
+        if callable(other):
+            return other(self)
+        elif isinstance(other, Component):
+            return other.append(self)
+        else:
+            raise TypeError
+
+    def __rlshift__(self, other):
+        if callable(other):
+            return other(self)
+        elif isinstance(other, Component):
+            return other.append(self)
+        else:
+            raise TypeError
+
     # noinspection PyCallingNonCallable
     @ClassProperty
     def empty(cls) -> 'Component':

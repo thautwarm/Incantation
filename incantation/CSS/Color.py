@@ -50,18 +50,18 @@ class Color(Attribute):
         return new
 
     @property
-    def lighten(self):
+    def lighten(self) -> 'Color':
         return self.switch('lighten')
 
     @property
-    def darken(self):
+    def darken(self) -> 'Color':
         return self.switch('darken')
 
     @property
-    def accent(self):
+    def accent(self) -> 'Color':
         return self.switch('accent')
 
-    def lighten_by(self, n: int):
+    def lighten_by(self, n: int) -> 'Color':
         new = self.empty
         new.name = self.name
 
@@ -79,7 +79,7 @@ class Color(Attribute):
 
         return new
 
-    def darken_by(self, n: int):
+    def darken_by(self, n: int) -> 'Color':
         return self.lighten_by(-n)
 
     # TODO more default colors

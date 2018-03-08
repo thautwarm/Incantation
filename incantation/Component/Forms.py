@@ -9,9 +9,8 @@ if False:
 
 class Label(Tag):
     @default_initializer
-    def __init__(self, verbose_text: str, *components: 'requires atttribute: for'):
-        check_has_attributes(components, 'id')
-        Tag.__init__(self, 'label', verbose_text, *components)
+    def __init__(self, *components: 'requires atttribute: for, and a str for visibility'):
+        Tag.__init__(self, 'label', *components)
 
     @doc_printer
     def help(self):

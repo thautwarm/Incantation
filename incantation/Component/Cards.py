@@ -68,11 +68,9 @@ class CardAction(ITraitsTag):
 class CardImg(Tag):
 
     @default_initializer
-    def __init__(self, *components, img: 'inc.Img', card_title: 'CardTitle' = None):
+    def __init__(self, *components: 'requires an image and a str'):
         Tag.__init__(self, 'div',
                      Attribute('class', 'card-image'),
-                     img,
-                     card_title,
                      *components)
 
     @doc_printer

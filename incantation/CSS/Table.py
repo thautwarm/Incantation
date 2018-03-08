@@ -66,7 +66,8 @@ class Table(Tag):
         centered = 'centered'
 
     @default_initializer
-    def __init__(self, data_source: 'List[List]', columns: 'List',
+    def __init__(self, data_source: 'List[List]',
+                 columns: 'List',
                  style: 'Table.Enum' = None,
                  index: 'Optional[List]' = None):
 

@@ -70,8 +70,12 @@ def default_initializer(init):
             mro = self.__class__.mro()
             mro[mro.index(self.__class__) + 1].__init__(self, super)
             return
+
         init(self, *args, **kwargs)
 
     update_wrapper(wrap, init)
     return wrap
 
+
+def call_func(func):
+    return func()

@@ -10,6 +10,9 @@ class Align(Attribute):
         Left = 'left-align'
         Right = 'right-align'
         Center = 'center-align'
+        ForceLeft = 'left'
+        ForceCenter = 'center'
+        ForceRight = 'right'
 
     @default_initializer
     def __init__(self, style: 'Align.Enum'):
@@ -25,12 +28,24 @@ class Align(Attribute):
         return Align(Align.Enum.Left)
 
     @ClassProperty
+    def force_left(cls) -> 'Align':
+        return Align(Align.Enum.ForceLeft)
+
+    @ClassProperty
     def right(cls) -> 'Align':
         return Align(Align.Enum.Right)
 
     @ClassProperty
+    def force_right(cls) -> 'Align':
+        return Align(Align.Enum.ForceRight)
+
+    @ClassProperty
     def center(cls) -> 'Align':
         return Align(Align.Enum.Center)
+
+    @ClassProperty
+    def force_center(cls) -> 'Align':
+        return Align(Align.Enum.ForceCenter)
 
     @doc_printer
     def help(self):
