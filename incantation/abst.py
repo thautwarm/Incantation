@@ -1,32 +1,18 @@
 import copy as pycopy
 from abc import abstractmethod
 from collections import defaultdict
-from typing import Tuple, Optional, Union, Any
-
+from typing import Tuple, Optional, Union, Any, Callable
 from linq import Flow
-
 from .utils import isa, is_unque, doc_printer, default_initializer
 
 
-def traits_class(name, inherit_from: 'class'):
-    # def wrap(cls: 'class'):
-    #     class cls(inherit_from):
-    #         @default_initializer
-    #         def __init__(self, *components):
-    #             inherit_from.__init__(self, name, *components)
-    #
-    #     return cls
-
-    return wrap
-
-
 class Format:
-    Tag = ('{indent}<{name} {attributes}>\n'
-           '{indent}{components}'
-           '{indent}</{name}>')
+    Tag = ("{indent}<{name}{attributes}>\n"
+           "{components}"
+           "{indent}</{name}>\n")
 
     Attribute = '{name}{eq}"{content}"'
-    Indent = ' '
+    Indent = ' ' * 4
 
 
 class Component:
@@ -49,6 +35,12 @@ class Component:
 
         new.components = self.components + components
         return new
+
+    def print_indent(self):
+        if isinstance(self, IndentWrapper):
+            return self.name
+        return [(self.name, self.indent),
+                [each.print_indent() for each in self.components if isinstance(each, Component)]]
 
     def set_indent(self, n):
         return self
@@ -76,7 +68,7 @@ class RecursiveIndent(Component):
 
         new.components = tuple(each.set_indent(n + 1) for each in self.components)
 
-        new.indent = n + 1
+        new.indent = n
 
         return new
 
@@ -90,8 +82,11 @@ class RecursiveIndent(Component):
 
 
 class IndentWrapper(Component):
-    __slots__ = ['components', 'name', 'indent']
+    __slots__ = ['components', 'indent']
+
     components: 'Any'
+
+    name = 'wrapper'
 
     def __init__(self, obj, indent=1):
         self.components = obj
@@ -101,8 +96,7 @@ class IndentWrapper(Component):
         return IndentWrapper(self.components, n)
 
     def __str__(self):
-        head = f'\n{Format.Indent * self.indent}'
-        return head + str(self.components).replace('\n', head)
+        return f'{Format.Indent*self.indent}{self.components}\n'
 
     def copy(self, deep=False):
         return pycopy.deepcopy(self) if deep else pycopy.copy(self)
@@ -177,11 +171,8 @@ class Tag(RecursiveIndent):
 
         return Format.Tag.format(name=self.name,
                                  indent=Format.Indent * self.indent,
-                                 components='{}\n'
-                                 .format(f'{" "*self.indent}\n'.join(
-                                     map(str, others)))
-                                 if others else '\n' if self.indent <= 1 else '',
-                                 attributes=' '.join(map(str, attributes)))
+                                 components='\n'.join(map(str, others)) if others else '\n' if self.indent <= 1 else '',
+                                 attributes=f' {"".join(map(str, attributes))}' if attributes else '')
 
     @doc_printer
     def help(self):
@@ -189,5 +180,34 @@ class Tag(RecursiveIndent):
         represent the the blocks in XML.
         """
 
-# tag.make('1', '2', attr.make('class', 'true'))
-# print(tag)
+
+def traits_class(*args, inherit_from: 'class' = Tag, help: 'Callable' = None):
+    if help is None:
+        help = inherit_from.help
+
+    def wrap(cls):
+        @default_initializer
+        def __init__(self, *components):
+            inherit_from.__init__(self, *args, *components)
+
+        return type(cls.__name__, (inherit_from,), {'__init__': __init__, 'help': help})
+
+    return wrap
+
+
+class ITraitsTag(Tag):
+    # for auto-complement
+    @abstractmethod
+    def __init__(self, *components):
+        assert type(self) is Tag
+        super().__init__(*components)
+        raise NotImplemented
+
+
+class ITraitsAttribute(Attribute):
+    # for auto-complement
+    @abstractmethod
+    def __init__(self, *components):
+        assert type(self) is Tag
+        super().__init__(*components)
+        raise NotImplemented
