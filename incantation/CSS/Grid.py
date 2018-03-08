@@ -55,6 +55,9 @@ class Grid(Attribute):
         """
 
 
+DoGrid = Grid
+
+
 class Offset(Attribute):
     @default_initializer
     def __init__(self, s: int = None, m: int = None, l: int = None):
@@ -78,6 +81,9 @@ class Offset(Attribute):
         """
 
 
+DoOffset = Offset
+
+
 class Push(Attribute):
     @default_initializer
     def __init__(self, s: int = None, m: int = None, l: int = None):
@@ -95,6 +101,9 @@ class Push(Attribute):
         """
 
 
+DoPush = Push
+
+
 class Pull(Attribute):
     help = Offset.help
 
@@ -104,6 +113,9 @@ class Pull(Attribute):
             raise ArgumentError('Require at least one keyword argumnet in (`s`, `m`, `l`).')
         param = ' '.join(f'{name}{length}' for name, length in dict(s=s, m=m, l=l).items() if length)
         Attribute.__init__(self, 'class', f'pull-{param}')
+
+
+DoPull = Pull
 
 
 class Row(Tag):
@@ -116,7 +128,6 @@ class Row(Tag):
         """
         >>> import incantation as inc
         >>> inc.Row(inc.Div('here is a row'), inc.Color('red'))
-        :return:
         """
 
 

@@ -92,7 +92,7 @@ class CollapsibleHeader(Tag):
         Tag.__init__(self, 'div', Attribute('class', 'collapsible-header'), *components)
 
 
-class DataBadgeCaption(Attribute):
+class IsDataBadgeCaption(Attribute):
 
     @default_initializer
     def __init__(self, arg="custom caption", *components):

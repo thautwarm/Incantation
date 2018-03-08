@@ -94,5 +94,5 @@ class Table(Tag):
 
 
 @traits_class('class', "responsive-table", inherit_from=Attribute, help=TableDoc.help)
-class ResponsiveTable(ITraitsAttribute):
+class IsResponsiveTable(ITraitsAttribute):
     pass

@@ -7,5 +7,5 @@ class Blockquote(ITraitsTag):
 
 
 @traits_class('class', 'flow-text', inherit_from=Attribute)
-class FlowText(ITraitsAttribute):
+class IsFlowText(ITraitsAttribute):
     pass

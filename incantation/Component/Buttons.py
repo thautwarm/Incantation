@@ -3,7 +3,7 @@ from ..utils import default_initializer
 
 
 @traits_class('class', 'disabled', inherit_from=Attribute)
-class DisableButton(ITraitsTag):
+class IsDisabledButton(ITraitsTag):
     pass
 
 
@@ -13,12 +13,12 @@ class Raised(ITraitsAttribute):
 
 
 @traits_class('class', 'btn-large', inherit_from=Attribute)
-class ButtonToLarge(ITraitsAttribute):
+class IsLargeButton(ITraitsAttribute):
     pass
 
 
 @traits_class('class', 'btn-flat', inherit_from=Attribute)
-class ButtonToFlat(ITraitsAttribute):
+class IsFlatButton(ITraitsAttribute):
     pass
 
 
@@ -28,17 +28,17 @@ class Horizontal(ITraitsAttribute):
 
 
 @traits_class('class', 'click-to-toggle', inherit_from=Attribute)
-class ClickToToggle(ITraitsAttribute):
+class IsButtonClickToToggle(ITraitsAttribute):
     pass
 
 
 @traits_class('class', 'toolbar', inherit_from=Attribute)
-class FABTooolbar(ITraitsAttribute):
+class IsFABTooolbar(ITraitsAttribute):
     pass
 
 
 @traits_class('class', 'btn-floating', inherit_from=Attribute)
-class Floating(ITraitsAttribute):
+class IsFloating(ITraitsAttribute):
     pass
 
 
@@ -73,7 +73,7 @@ class FixActionButton(Tag):
     @default_initializer
     def __init__(self, color: str, main_icon: 'Icon', *components: 'the list of sub icons'):
         Tag.__init__(self, 'div', Attribute('class', 'fixed-action-btn'),
-                     Tag('a', Floating(), ButtonToLarge(), Attribute('class', color)),
+                     Tag('a', IsFloating(), IsLargeButton(), Attribute('class', color)),
                      Tag('ul', *components))
 
     def append_sub_icon(self, *btns: 'tag name should be a with an icon inside'):

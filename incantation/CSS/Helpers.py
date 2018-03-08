@@ -40,7 +40,10 @@ class Align(Attribute):
         """
 
 
-class Hide(Attribute):
+DoAlign = Align
+
+
+class IsHide(Attribute):
     class Enum(enum):
         default = 'hide'
         small_only = 'hide-on-small-only'
@@ -48,25 +51,25 @@ class Hide(Attribute):
         large_only = 'hide-on-large-only'
 
     @default_initializer
-    def __init__(self, style: 'Hide.Enum'):
-        assert isinstance(style, Hide.Enum)
+    def __init__(self, style: 'IsHide.Enum'):
+        assert isinstance(style, IsHide.Enum)
         Attribute.__init__(self, 'class', style.value)
 
     @ClassProperty
-    def default(cls) -> 'Hide':
-        return Hide(Hide.Enum.default)
+    def default(cls) -> 'IsHide':
+        return IsHide(IsHide.Enum.default)
 
     @ClassProperty
-    def small_only(cls) -> 'Hide':
-        return Hide(Hide.Enum.small_only)
+    def small_only(cls) -> 'IsHide':
+        return IsHide(IsHide.Enum.small_only)
 
     @ClassProperty
-    def med_only(cls) -> 'Hide':
-        return Hide(Hide.Enum.med_only)
+    def med_only(cls) -> 'IsHide':
+        return IsHide(IsHide.Enum.med_only)
 
     @ClassProperty
-    def large_only(cls) -> 'Hide':
-        return Hide(Hide.Enum.large_only)
+    def large_only(cls) -> 'IsHide':
+        return IsHide(IsHide.Enum.large_only)
 
 
 class Truncate(Attribute):
@@ -84,7 +87,13 @@ class Truncate(Attribute):
         """
 
 
+IsTruncate = Truncate
+
+
 class Hover(Attribute):
     @default_initializer
     def __init__(self):
         Attribute.__init__(self, 'class', 'hoverable')
+
+
+IsHover = Hover

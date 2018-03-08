@@ -33,3 +33,6 @@ class ZDepth(Attribute):
             _Depth(comp.depth - z) if isinstance(comp, _Depth) else comp for comp in self.components)
 
         return new
+
+
+DoZDepth = ZDepth
