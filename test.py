@@ -87,13 +87,13 @@ inc.Page(inc.Container(
     inc.Row(
         inc.C(
             inc.C(inc.Grid(s=12, m=4), inc.Align.center)
-            << inc.IconBlock('blue', "今晚八点", "贪玩蓝月，找回年秀时贪玩的你", inc.Icon('flash_on')),
+            << inc.IconTextBlock('blue', "今晚八点", "贪玩蓝月，找回年秀时贪玩的你", inc.Icon('flash_on')),
 
             inc.C(inc.Grid(s=12, m=4), inc.Align.center)
-            << inc.IconBlock(icon_color='orange', title='贪玩气球', text='玩玩一年，原来装备真能赚钱', icon=inc.Icon('edit')),
+            << inc.IconTextBlock(icon_color='orange', title='贪玩气球', text='玩玩一年，原来装备真能赚钱', icon=inc.Icon('edit')),
 
             inc.C(inc.Grid(s=12, m=4), inc.Align.center)
-            << inc.IconBlock(icon_color='green', title='一人我渣渣辉', text='刚好遇见渣渣辉', icon=inc.Icon('ac_unit'))
+            << inc.IconTextBlock(icon_color='green', title='一人我渣渣辉', text='刚好遇见渣渣辉', icon=inc.Icon('ac_unit'))
 
         )
     ),
@@ -156,12 +156,11 @@ inc.Page(inc.Container(
             inc.CardImage(inc.Img(inc.Grid(s=12, m=6, l=6), src=img_url, alt='贪玩挂了？')).append(inc.Align.right),
 
         ).append(inc.Pulse()),
-
-        # 卡片动作（链接
-        inc.CardAction(inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '船新版本'),
-                       inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '古天乐绿了'),
-                       inc.Tag('a', incf.Href(SubmitPage), '登录游戏').append(inc.Align.force_right)),
     ),
+    # 卡片动作（链接
+    inc.CardAction(inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '船新版本'),
+                   inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '古天乐绿了'),
+                   inc.Tag('a', incf.Href(SubmitPage), '登录游戏').append(inc.Align.force_right)),
 
 )).write(to='test/tanwan.html')  # 写入html
 
@@ -169,25 +168,41 @@ side_nav = inc.SideNav.new(
     id='sda',
     profile_background_img='b1.jpg',
     user_info=[
-        inc.SideNavItem(href='#user!',
-                        component=inc.Img(
-                            inc.Attribute('class', 'circle'),
-                            src='avatar.jpg')),
-        inc.SideNavItem(href='#email!', component=inc.Span(inc.Attribute('class', 'email'),
-                                                           inc.TextColor('black'),
-                                                           "<h4>xxx@lll</h4>")),
+
+        inc.SideNavItem(inc.Img(
+            inc.Attribute('class', 'circle'),
+            src='avatar.jpg'),
+            incf.Href('#user!')),
+
+        inc.SideNavItem(inc.Span(inc.Attribute('class', 'email'),
+                                 inc.TextColor('black'),
+                                 "<h4>xxx@lll</h4>"),
+                        incf.Href('#user')),
     ]
 
 )
 
 inc.Page(
     side_nav,
-    side_nav.link(inc.Icon('menu')),
+    side_nav.link(inc.Icon('menu')).append(inc.Align.left),
     side_nav.active(),
+
+    inc.NavBar(inc.BrandLogo('贪玩鬼',
+                             inc.Align.force_center,  # 强制中心
+                             incf.Href(贪玩蓝月),
+                             ),
+               inc.Tag('ul',
+                       inc.Align.force_right,  # 强制向右
+                       inc.Tag('li') << inc.Tag('a', inc.Attribute('href', 贪玩蓝月), "点击就送"),
+                       inc.Tag('li') << inc.Tag('a', inc.Attribute('href', SubmitPage), '是兄弟就来干我')),
+               # << 表示向目标方向添加元素
+
+               inc.Color('teal')),  # 设定颜色
     inc.Container(
 
-        navbar,
-
+        inc.Row(
+            inc.Grid(s=12, m=12, l=12),
+        ),
         *(incf.NewLine,) * 5,
 
         inc.Row(
@@ -250,6 +265,10 @@ inc.Page(
                     ),
                 ),
             ),
+        ),
+        inc.Slider(
+            inc.Slide(img='./static/images/index1.jpg', big_text='贪玩蓝月', tiny_text='你没有玩过的全新版本', align='right'),
+            inc.Slide(img='./static/images/index1.jpg', big_text='贪玩蓝月', tiny_text='你没有玩过的全新版本', align='right'),
+            inc.DoSliderActivate()
         )
-
     )).write(to='test/tanwansubmit.html')

@@ -64,5 +64,5 @@ class SideNavLink(Tag):
 
 class SideNavItem(Tag):
     @default_initializer
-    def __init__(self, href: str, component):
-        Tag.__init__(self, 'a', Attr('href', href), component)
+    def __init__(self, *components):
+        Tag.__init__(self, 'a', *components)

@@ -1,6 +1,7 @@
 import copy as pycopy
 from abc import abstractmethod
 from collections import defaultdict
+from functools import update_wrapper
 from typing import Tuple, Optional, Union, Any, Callable
 from linq import Flow
 from .utils import isa, is_unque, doc_printer, default_initializer, ClassProperty
@@ -213,6 +214,18 @@ def traits_class(*args, inherit_from: 'class' = Tag, help: 'Callable' = None):
         def __init__(self, *components):
             inherit_from.__init__(self, *args, *components)
 
+        return type(cls.__name__, (inherit_from,), {'__init__': __init__, 'help': help})
+
+    return wrap
+
+
+def intelligence_traits_class(*args, inherit_from: 'class' = Tag, help: 'Callable' = None):
+    def wrap(cls):
+        @default_initializer
+        def __init__(self, *components):
+            inherit_from.__init__(self, *args, *components)
+
+        update_wrapper(__init__, cls.__init__)
         return type(cls.__name__, (inherit_from,), {'__init__': __init__, 'help': help})
 
     return wrap
