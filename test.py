@@ -1,8 +1,6 @@
 from pprint import pprint
 
 import incantation as inc
-import incantation.Frequently as incf  # 提供一些常用的html标签
-
 # print(str(
 #     inc.Container(color,
 #                   "123",
@@ -36,7 +34,7 @@ IndexPage = 'tanwan.html'
 
 navbar = inc.NavBar(inc.BrandLogo('贪玩鬼',
                                   inc.Align.force_center,  # 强制中心
-                                  incf.Href(贪玩蓝月),
+                                  inc.Href(贪玩蓝月),
                                   ),
                     inc.Tag('ul',
                             inc.Align.force_right,  # 强制向右
@@ -49,11 +47,11 @@ navbar = inc.NavBar(inc.BrandLogo('贪玩鬼',
 dropdown = inc.Dropdown(
     inc.Attribute('id', '贪玩dropdown'),
     inc.Tag('li', inc.Tag('a',
-                          incf.Href(SubmitPage),
+                          inc.Href(SubmitPage),
                           "屠龙宝刀",
                           inc.Badge("!", new=True))),
     inc.Tag('li', inc.Tag('a',
-                          incf.Href(SubmitPage),
+                          inc.Href(SubmitPage),
                           inc.Badge("go!"),
                           '荷官发牌')))
 
@@ -120,11 +118,11 @@ inc.Page(inc.Container(
                       # 增加卡片文字描述
                       inc.Paragraph(
                           inc.Paragraph("<h3>来玩</h3>"),
-                          incf.NewLine,  # 加新行
+                          inc.NewLine,  # 加新行
                           "古天乐，陈小春，渣渣辉，都在玩这个游戏，你还在等什么？",
-                          incf.NewLine,
+                          inc.NewLine,
                           inc.Paragraph("百科:",
-                                        incf.NewLine,
+                                        inc.NewLine,
                                         贪玩蓝月百度百科
                                         ).append(inc.Align.left)
                       ).append(inc.IsHover()),  # 增加悬浮属性
@@ -142,11 +140,11 @@ inc.Page(inc.Container(
                       inc.CardTitle('贪玩卡').append(inc.Align.right),
 
                       inc.Paragraph("<h2>来玩</h2>",
-                                    incf.NewLine,
+                                    inc.NewLine,
                                     "古天乐，陈小春，渣渣辉，都在玩这个游戏，你还在等什么？",
-                                    incf.NewLine,
+                                    inc.NewLine,
                                     "百科",
-                                    incf.NewLine,
+                                    inc.NewLine,
                                     贪玩蓝月百度百科),
                       inc.TextColor('white')).append(inc.IsHover()),
 
@@ -159,7 +157,7 @@ inc.Page(inc.Container(
     # 卡片动作（链接
     inc.CardAction(inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '船新版本'),
                    inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '古天乐绿了'),
-                   inc.Tag('a', incf.Href(SubmitPage), '登录游戏').append(inc.Align.force_right)),
+                   inc.Tag('a', inc.Href(SubmitPage), '登录游戏').append(inc.Align.force_right)),
 
 )).write(to='test/tanwan.html')  # 写入html
 
@@ -171,12 +169,12 @@ side_nav = inc.SideNav.new(
         inc.SideNavItem(inc.Img(
             inc.Attribute('class', 'circle'),
             src='avatar.jpg'),
-            incf.Href('#user!')),
+            inc.Href('#user!')),
 
         inc.SideNavItem(inc.Span(inc.Attribute('class', 'email'),
                                  inc.TextColor('black'),
                                  "<h4>xxx@lll</h4>"),
-                        incf.Href('#user')),
+                        inc.Href('#user')),
     ]
 
 )
@@ -188,7 +186,7 @@ inc.Page(
 
     inc.NavBar(inc.BrandLogo('贪玩鬼',
                              inc.Align.force_center,  # 强制中心
-                             incf.Href(贪玩蓝月),
+                             inc.Href(贪玩蓝月),
                              ),
                inc.Tag('ul',
                        inc.Align.force_right,  # 强制向右
@@ -202,13 +200,13 @@ inc.Page(
         inc.Row(
             inc.Grid(s=12, m=12, l=12),
         ),
-        *(incf.NewLine,) * 5,
+        *(inc.NewLine,) * 5,
 
         inc.Row(
             inc.C(
 
                 inc.Tag('a',
-                        incf.Href(贪玩蓝月),
+                        inc.Href(贪玩蓝月),
                         inc.Img(inc.Grid(s=12, m=6), inc.IsHover(), src='pm.jpg', alt='贪玩揽约'),
                         )),
             inc.C(
@@ -242,7 +240,7 @@ inc.Page(
                                    inc.Align.force_right
                                    ),
                     ),
-                    *(incf.NewLine,) * 2,
+                    *(inc.NewLine,) * 2,
                     inc.Collapsible(
                         inc.Tag('li',
                                 inc.CollapsibleHeader(
@@ -255,7 +253,7 @@ inc.Page(
                                 inc.CollapsibleBody(
                                     inc.Icon('place'),
                                     inc.Tag('a',
-                                            incf.Href(贪玩蓝月),
+                                            inc.Href(贪玩蓝月),
                                             "点击就送"
                                             ),
                                     inc.Paragraph(贪玩蓝月百度百科)
@@ -265,9 +263,11 @@ inc.Page(
                 ),
             ),
         ),
+
         inc.Slider(
             inc.Slide(img='./static/images/index1.jpg', big_text='贪玩蓝月', tiny_text='你没有玩过的全新版本', align='right'),
             inc.Slide(img='./static/images/index1.jpg', big_text='贪玩蓝月', tiny_text='你没有玩过的全新版本', align='right'),
             inc.DoSliderActivate()
         )
+
     )).write(to='test/tanwansubmit.html')
