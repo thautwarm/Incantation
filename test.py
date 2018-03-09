@@ -128,8 +128,7 @@ inc.Page(inc.Container(
                                         贪玩蓝月百度百科
                                         ).append(inc.Align.left)
                       ).append(inc.IsHover()),  # 增加悬浮属性
-
-                      text_color='white'),
+                      inc.TextColor('white')),
 
                   ).append(inc.Align.right, inc.Hover()),
         ).append(inc.Pulse()),  # 增加pulse，闪闪发光
@@ -149,7 +148,7 @@ inc.Page(inc.Container(
                                     "百科",
                                     incf.NewLine,
                                     贪玩蓝月百度百科),
-                      text_color='white').append(inc.IsHover()),
+                      inc.TextColor('white')).append(inc.IsHover()),
 
                   ).append(inc.Align.left),
 

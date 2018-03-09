@@ -67,7 +67,7 @@ class Slider(Tag):
 
 class Slide(Tag):
     @default_initializer
-    def __init__(self, img: str, big_text: str, tiny_text: str, align: str, *components):
+    def __init__(self, img: str, big_text: str, tiny_text: str, align: str, *componentss):
         Tag.__init__(self, 'li',
                      Img(src=img, alt=''),
                      Tag('div',

@@ -93,8 +93,7 @@ class CardImage(ITraitsTag):
 
 class CardContent(Tag):
     @default_initializer
-    def __init__(self, *components, text_color: str = 'white'):
+    def __init__(self, *components: 'requres a TextColor'):
         Tag.__init__(self, 'div',
                      Attribute('class', 'card-content'),
-                     Attribute('class', f'{text_color}-text'),
                      *components)
