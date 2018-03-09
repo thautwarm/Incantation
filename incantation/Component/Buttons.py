@@ -11,7 +11,7 @@ class IsDisabledButton(ITraitsTag):
 
 
 @traits_class('class', 'waves-effect waves-light', inherit_from=Attribute)
-class Raised(ITraitsAttribute):
+class IsRaised(ITraitsAttribute):
     pass
 
 

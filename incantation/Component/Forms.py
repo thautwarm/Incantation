@@ -50,7 +50,7 @@ class IsInputField(ITraitsAttribute):
 class InputField(Tag):
     @default_initializer
     def __init__(self, *components: 'requires tags of following types: Label, Input'):
-        Tag.__init__(self, 'div', *components)
+        Tag.__init__(self, 'div', IsInputField(), *components)
 
 
 @traits_class('class', 'multiple', inherit_from=Attribute)
@@ -90,7 +90,7 @@ class Form(Tag):
 
     @default_initializer
     def __init__(self, *components: 'contains the input fields'):
-        Tag.__init__(self, *components)
+        Tag.__init__(self, 'form', *components)
 
     @doc_printer
     def help(self):

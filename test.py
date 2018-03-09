@@ -31,6 +31,9 @@ img_url = './sample-1.jpg'
 贪玩蓝月 = 'http://baidu.code.xuxiyx.com/htmlcode/13085.html'
 贪玩蓝月百度百科 = "《贪玩蓝月》是一款集经典与创新的传奇游戏，采用2.5D图像技术，通过即时的光影成像技术，营造亦真亦幻的游戏世界。突破以往传奇游戏的桎梏，再度重现英雄合击的经典版本。"
 
+SubmitPage = 'tanwansubmit.html'
+IndexPage = 'tanwan.html'
+
 navbar = inc.NavBar(inc.BrandLogo('贪玩鬼',
                                   inc.Align.force_center,  # 强制中心
                                   incf.Href(贪玩蓝月),
@@ -38,14 +41,21 @@ navbar = inc.NavBar(inc.BrandLogo('贪玩鬼',
                     inc.Tag('ul',
                             inc.Align.force_right,  # 强制向右
                             inc.Tag('li') << inc.Tag('a', inc.Attribute('href', 贪玩蓝月), "点击就送"),
-                            inc.Tag('li') << inc.Tag('a', inc.Attribute('href', 'https://github.com'), '是兄弟就来干我')),
+                            inc.Tag('li') << inc.Tag('a', inc.Attribute('href', SubmitPage), '是兄弟就来干我')),
                     # << 表示向目标方向添加元素
 
                     inc.Color('teal'))  # 设定颜色
 
-dropdown = inc.Dropdown(inc.Attribute('id', '贪玩dropdown'),
-                        inc.Tag('li', inc.Tag('a', inc.Attribute('href', '#!'), "屠龙宝刀", inc.Badge("!", new=True))),
-                        inc.Tag('li', inc.Tag('a', inc.Badge("go!"), '荷官发牌')))
+dropdown = inc.Dropdown(
+    inc.Attribute('id', '贪玩dropdown'),
+    inc.Tag('li', inc.Tag('a',
+                          incf.Href(SubmitPage),
+                          "屠龙宝刀",
+                          inc.Badge("!", new=True))),
+    inc.Tag('li', inc.Tag('a',
+                          incf.Href(SubmitPage),
+                          inc.Badge("go!"),
+                          '荷官发牌')))
 
 inc.Page(inc.Container(
 
@@ -60,7 +70,7 @@ inc.Page(inc.Container(
         dropdown,
         # 将dropdown显示在此处
         dropdown.link("点击注册",
-                      inc.Attribute('href', '#!'),
+                      inc.Attribute('href', SubmitPage),
                       inc.Icon('arrow_drop_down', inc.Attribute('class', 'right'))),
     ),
 
@@ -148,9 +158,9 @@ inc.Page(inc.Container(
         ).append(inc.Pulse()),
 
         # 卡片动作（链接
-        inc.CardAction(inc.Tag('a', inc.Attribute('href', '#!'), '船新版本'),
-                       inc.Tag('a', inc.Attribute('href', '#!'), '古天乐绿了'),
-                       inc.Tag('a', incf.Href('#!'), '登录游戏').append(inc.Align.force_right)),
+        inc.CardAction(inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '船新版本'),
+                       inc.Tag('a', inc.Attribute(SubmitPage, '#!'), '古天乐绿了'),
+                       inc.Tag('a', incf.Href(SubmitPage), '登录游戏').append(inc.Align.force_right)),
     ),
 
 )).write(to='test/tanwan.html')  # 写入html
@@ -158,23 +168,48 @@ inc.Page(inc.Container(
 inc.Page(inc.Container(
     navbar,
 
-    inc.Form(
+    *(incf.NewLine,) * 5,
 
-        inc.InputField(inc.Input(inc.Input.Enum.text,
-                                 inc.Attribute('id', 'username'),
-                                 inc.Attribute('name', 'username')),
+    inc.Row(
+        inc.C(
 
-                       inc.Label(inc.Attribute('for', 'username'),
-                                 "渣渣名")
-                       ),
+            inc.Tag('a',
+                    incf.Href(贪玩蓝月),
+                    inc.Img(inc.Grid(s=12, m=6), inc.IsHover(), src='pm.jpg', alt='贪玩揽约'),
+                    )),
+        inc.C(
+            inc.Grid(s=12, m=6),
+            inc.Form(
+                inc.Attribute('action', IndexPage),
+                inc.Attribute('method', 'post'),
 
-        inc.InputField(inc.Input(inc.Input.Enum.password,
-                                 inc.Attribute('id', 'password'),
-                                 inc.Attribute('name', 'password')),
+                inc.InputField(inc.Input(inc.Input.Enum.text,
+                                         inc.Attribute('id', 'username'),
+                                         inc.Attribute('name', 'username')),
 
-                       inc.Label(inc.Attribute('for', 'password'),
-                                 "渣渣码")
-                       ),
-        inc.Submit("渣渣交", inc.Icon("submit"), inc.Attribute('id', 'submit'))
+                               inc.Label(inc.Attribute('for', 'username'),
+                                         "渣渣名")
+                               ),
+
+                inc.InputField(inc.Input(inc.Input.Enum.password,
+                                         inc.Attribute('id', 'password'),
+                                         inc.Attribute('name', 'password')),
+
+                               inc.Label(inc.Attribute('for', 'password'),
+                                         "渣渣码")
+                               ),
+
+                inc.C(
+                    inc.Submit(inc.C("渣渣交").append(inc.Align.center),
+                               inc.Grid(s=4, m=2, l=2),
+                               inc.Icon("submit"),
+                               inc.Attribute('id', 'submit'),
+                               inc.IsRaised(),
+                               inc.Align.force_right
+                               ),
+                )
+            ),
+        ),
     )
+
 )).write(to='test/tanwansubmit.html')

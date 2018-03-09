@@ -1,4 +1,4 @@
-from ..abst import traits_class, Tag, Attribute, ITraitsTag
+from ..abst import traits_class, Tag, Attribute, ITraitsTag, Component
 
 
 @traits_class('html', inherit_from=Tag)
