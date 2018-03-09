@@ -28,3 +28,9 @@ class IconBlock(Tag):
                      Tag('h2', Attribute('class', f'center {icon_color}-text'), icon),
                      Tag('h5', Attribute('class', 'center'), title),
                      Tag('p', Attribute('class', 'light'), text))
+
+
+class TextColor(Attribute):
+    @default_initializer
+    def __init__(self, color: str):
+        Attribute.__init__(self, 'class', f'{color}-text')

@@ -78,20 +78,22 @@ class BrandLogo(Tag):
         """
 
 
-class Collapsible(Tag):
+@traits_class('ul',
+              Attribute('class', 'collapsible'),
+              Attribute('data-collapsible', 'accordion'),
+              inherit_from=Tag)
+class Collapsible(ITraitsTag):
+    pass
 
-    @default_initializer
-    def __init__(self, *components):
-        Tag.__init__(self, 'ul',
-                     Attribute('class', 'collapsible'),
-                     Attribute('data-collapsible', 'accordion'), *components)
+
+@traits_class('div', Attribute('class', 'collapsible-header'), inherit_from=Tag)
+class CollapsibleHeader(ITraitsTag):
+    pass
 
 
-class CollapsibleHeader(Tag):
-
-    @default_initializer
-    def __init__(self, *components):
-        Tag.__init__(self, 'div', Attribute('class', 'collapsible-header'), *components)
+@traits_class('div', Attribute('class', 'collapsible-body'), inherit_from=Tag)
+class CollapsibleBody(ITraitsTag):
+    pass
 
 
 class IsDataBadgeCaption(Attribute):

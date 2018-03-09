@@ -165,51 +165,91 @@ inc.Page(inc.Container(
 
 )).write(to='test/tanwan.html')  # 写入html
 
-inc.Page(inc.Container(
-    navbar,
+side_nav = inc.SideNav.new(
+    id='sda',
+    profile_background_img='b1.jpg',
+    user_info=[
+        inc.SideNavItem(href='#user!',
+                        component=inc.Img(
+                            inc.Attribute('class', 'circle'),
+                            src='avatar.jpg')),
+        inc.SideNavItem(href='#email!', component=inc.Span(inc.Attribute('class', 'email'),
+                                                           inc.TextColor('black'),
+                                                           "<h4>xxx@lll</h4>")),
+    ]
 
-    *(incf.NewLine,) * 5,
+)
 
-    inc.Row(
-        inc.C(
+inc.Page(
+    side_nav,
+    side_nav.link(inc.Icon('menu')),
+    side_nav.active(),
+    inc.Container(
 
-            inc.Tag('a',
-                    incf.Href(贪玩蓝月),
-                    inc.Img(inc.Grid(s=12, m=6), inc.IsHover(), src='pm.jpg', alt='贪玩揽约'),
-                    )),
-        inc.C(
-            inc.Grid(s=12, m=6),
-            inc.Form(
-                inc.Attribute('action', IndexPage),
-                inc.Attribute('method', 'post'),
+        navbar,
 
-                inc.InputField(inc.Input(inc.Input.Enum.text,
-                                         inc.Attribute('id', 'username'),
-                                         inc.Attribute('name', 'username')),
+        *(incf.NewLine,) * 5,
 
-                               inc.Label(inc.Attribute('for', 'username'),
-                                         "渣渣名")
-                               ),
+        inc.Row(
+            inc.C(
 
-                inc.InputField(inc.Input(inc.Input.Enum.password,
-                                         inc.Attribute('id', 'password'),
-                                         inc.Attribute('name', 'password')),
+                inc.Tag('a',
+                        incf.Href(贪玩蓝月),
+                        inc.Img(inc.Grid(s=12, m=6), inc.IsHover(), src='pm.jpg', alt='贪玩揽约'),
+                        )),
+            inc.C(
+                inc.Grid(s=12, m=6),
+                inc.Form(
+                    inc.Attribute('action', IndexPage),
+                    inc.Attribute('method', 'post'),
 
-                               inc.Label(inc.Attribute('for', 'password'),
-                                         "渣渣码")
-                               ),
+                    inc.InputField(inc.Input(inc.Input.Enum.text,
+                                             inc.Attribute('id', 'username'),
+                                             inc.Attribute('name', 'username')),
 
-                inc.C(
-                    inc.Submit(inc.C("渣渣交").append(inc.Align.center),
-                               inc.Grid(s=4, m=2, l=2),
-                               inc.Icon("submit"),
-                               inc.Attribute('id', 'submit'),
-                               inc.IsRaised(),
-                               inc.Align.force_right
-                               ),
-                )
+                                   inc.Label(inc.Attribute('for', 'username'),
+                                             "渣渣名")
+                                   ),
+
+                    inc.InputField(inc.Input(inc.Input.Enum.password,
+                                             inc.Attribute('id', 'password'),
+                                             inc.Attribute('name', 'password')),
+
+                                   inc.Label(inc.Attribute('for', 'password'),
+                                             "渣渣码")
+                                   ),
+
+                    inc.C(
+                        inc.Submit(inc.C("渣渣交").append(inc.Align.center),
+                                   inc.Grid(s=4, m=2, l=2),
+                                   inc.Icon("submit"),
+                                   inc.Attribute('id', 'submit'),
+                                   inc.IsRaised(),
+                                   inc.Align.force_right
+                                   ),
+                    ),
+                    *(incf.NewLine,) * 2,
+                    inc.Collapsible(
+                        inc.Tag('li',
+                                inc.CollapsibleHeader(
+                                    inc.Icon('filter_drama'),
+                                    "遇见渣渣",
+                                    inc.Badge('就是渣渣',
+                                              inc.Attribute('id', '在这里用js动态修改'),
+                                              new=True)),
+
+                                inc.CollapsibleBody(
+                                    inc.Icon('place'),
+                                    inc.Tag('a',
+                                            incf.Href(贪玩蓝月),
+                                            "点击就送"
+                                            ),
+                                    inc.Paragraph(贪玩蓝月百度百科)
+
+                                ))
+                    ),
+                ),
             ),
-        ),
-    )
+        )
 
-)).write(to='test/tanwansubmit.html')
+    )).write(to='test/tanwansubmit.html')
